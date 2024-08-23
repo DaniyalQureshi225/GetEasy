@@ -37,14 +37,14 @@ const LookingFor = ({navigation}) => {
 
         onPress={()=>navigation.navigate('Filter')}
         mt={hp('8%')}
-        text={'Hotles'}
+        text={'Hotels'}
         type={'MaterialCommunityIcons'}
         name={'bed-queen'}
         />
         <FatBtn 
         onPress={()=>navigation.navigate('MyDrawer')}
         mt={hp('8%')}
-        text={'Flight'}
+        text={'Flights'}
         type={'FontAwesome'}
         name={'plane'}
         />

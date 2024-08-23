@@ -3,14 +3,14 @@ import React, {useState} from "react";
 import {hp, wp, Color, FontSize} from './../Color/Color'
 import { box, fillbox } from "../assets/Images";
 
-const TermCheck = ({txt}) =>{
+const TermCheck = ({txt, check,  onPress }) =>{
 
-    const [check, setCheck] = useState(false);
+    
 
    
 
     return(
-        <TouchableOpacity onPress={()=>setCheck(!check)} activeOpacity={0.7} style={styles.termsContainer}>
+        <TouchableOpacity onPress={onPress} activeOpacity={0.7} style={styles.termsContainer}>
           <Image source={check ?fillbox : box} style={styles.termsIcon} />
           <Text style={[styles.termsText, {color: check ? Color.primaryColor : Color.textGray}]}>
             

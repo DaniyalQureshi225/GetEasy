@@ -14,9 +14,11 @@ import {
     lock,
     phoneIcon,
     placeholder,
+    placeholder1,
   } from '../../../assets/Images';
   import { wp} from '../../../Color/Color';
 import Appbtn from '../../../Components/Appbtn';
+import {TextInputMask} from 'react-native-masked-text';
 
 const Profile = ({navigation}) =>{
     const {
@@ -62,15 +64,15 @@ const Profile = ({navigation}) =>{
         </TouchableOpacity>
 
         <InputField
-          img={placeholder}
-          placeholderText={'Mitul Patal'}
+          img={placeholder1}
+          placeholderText={'Enter your username'}
           field={user}
           setField={setUser}
           keyboardType={'default'}
         />
         <InputField
           img={email}
-          placeholderText={'loremipsum@gmail.com'}
+          placeholderText={'Enter your Email'}
           field={emailId}
           setField={setEmailId}
           imgWidth={wp('5.5%')}
@@ -79,15 +81,16 @@ const Profile = ({navigation}) =>{
         />
         <InputField
           img={phoneIcon}
-          placeholderText={'123 456 7890'}
+          placeholderText={'Phone Number'}
           field={phone}
           setField={setPhone}
           keyboardType={'numeric'}
-          maxlength={10}
+          maxlength={15}
+          phone={true}
         />
         <InputField
           img={lock}
-          placeholderText={'*********'}
+          placeholderText={'Password'}
           field={password}
           setField={setPassword}
           keyboardType={'default'}
@@ -97,7 +100,7 @@ const Profile = ({navigation}) =>{
         />
         <InputField
           img={lock}
-          placeholderText={'*********'}
+          placeholderText={'Confirm Password'}
           field={confirmPassword}
           setField={setConfirmPassword}
           keyboardType={'default'}
@@ -106,7 +109,7 @@ const Profile = ({navigation}) =>{
           secure={true}
         />
         
-       <Appbtn  btnText={'sign up'} mt={hp('5%')}/>
+       <Appbtn  btnText={'UPDATE'} mt={hp('5%')}/>
       </View>
    
        </ProfileThemeBg>

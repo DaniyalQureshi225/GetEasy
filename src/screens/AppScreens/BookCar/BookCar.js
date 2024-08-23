@@ -3,7 +3,9 @@ import {View, StyleSheet} from 'react-native';
 import {Color, hp, wp} from '../../../Color/Color';
 import {
   calender,
+  cars,
   chair,
+  clock,
   land,
   plane,
   takeOff,
@@ -22,6 +24,7 @@ import FlightDateBtn from '../../../Components/FlightDateBtn';
 import FlightDropDown from '../../../Components/FlightDropDown';
 import {styles} from './style';
 import BottomTab from '../../../Components/BottomTab';
+import ScreenWraper from '../../../Components/ScreenWraper';
 
 const BookCar = ({navigation}) => {
   const [date, setDate] = useState(new Date());
@@ -42,18 +45,21 @@ const BookCar = ({navigation}) => {
   const CurrentTime = moment(new Date()).format('HH:mm');
 
   return (
-    <>
+    <ScreenWraper>
       <BookingBg
         OpenDrawer={()=>navigation.toggleDrawer()}
         userImg={user}
         txt1={'Hello Mitul Patel'}
         txt2={'Search Cars'}
-        mainImg={plane}>
+        mainImg={cars}
+        ml={wp('-5%')}
+        tf={'0deg'}
+        >
         <View style={{height: hp('2%')}} />
         <FlightBtn
           field={from}
           setField={setFrom}
-          text={'PickUp'}
+          text={'Pick-Up'}
           img={takeOff}
           placeholder={'Location'}
           textWidth={wp('80%')}
@@ -62,7 +68,7 @@ const BookCar = ({navigation}) => {
         <FlightBtn
           field={to}
           setField={setTo}
-          text={'DropOff'}
+          text={'Drop-Off'}
           img={land}
           placeholder={'Destination'}
           textWidth={wp('80%')}
@@ -75,7 +81,7 @@ const BookCar = ({navigation}) => {
             onPress={() => setOpen(true)}
             field={date}
             setField={setDate}
-            text={'pickup date'}
+            text={'pick-up date'}
             img={calender}
             date={CheckIn !== CheckCurrent ? CheckIn : 'dd mmm, yyyy'}
             textWidth={wp('80%')}
@@ -86,7 +92,7 @@ const BookCar = ({navigation}) => {
             onPress={() => setOpen2(true)}
             field={date2}
             setField={setDate2}
-            text={'drop date'}
+            text={'drop-off'}
             img={calender}
             date={CheckOut !== CheckCurrent ? CheckOut : 'dd mmm, yyyy'}
             textWidth={wp('80%')}
@@ -99,8 +105,8 @@ const BookCar = ({navigation}) => {
             onPress={() => setOpen3(true)}
             field={time}
             setField={setTime}
-            text={'pickup time'}
-            img={calender}
+            text={'pick-up time'}
+            img={clock}
             date={PickUpTime !== CurrentTime ? PickUpTime : 'hh:mm'}
             textWidth={wp('80%')}
             containerWidth={wp('43%')}
@@ -110,8 +116,8 @@ const BookCar = ({navigation}) => {
             onPress={() => setOpen4(true)}
             field={time2}
             setField={setTime2}
-            text={'drop time'}
-            img={calender}
+            text={'drop-off'}
+            img={clock}
             date={DropOffTime !== CurrentTime ? DropOffTime : 'hh:mm'}
             textWidth={wp('80%')}
             containerWidth={wp('43%')}
@@ -186,7 +192,7 @@ const BookCar = ({navigation}) => {
           setOpen4(false);
         }}
       />
-    </>
+    </ScreenWraper>
   );
 };
 

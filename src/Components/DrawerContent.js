@@ -13,10 +13,7 @@ const DrawerContent = props => {
 
   return (
     <View style={styles.flex}>
-         <Image
-          source={mobile}
-          style={{width: wp('100%'), height: hp('90%'), position: 'absolute', zIndex:999, top:hp('6%'), left:wp('44%'),}}
-        />
+      
       <DrawerContentScrollView {...props}>
        
         <View style={styles.container}>
@@ -37,12 +34,13 @@ const DrawerContent = props => {
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
       <View style={styles.padding}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity onPress={()=>navigation.navigate('SignIn')} style={styles.button}>
           <Icon
             size={wp('5%')}
             type="AntDesign"
             color={Color.white}
             name="questioncircleo"
+            style={{marginLeft:wp('5%')}}
           />
           <Text style={styles.text}>{'Logout'}</Text>
         </TouchableOpacity>
@@ -54,7 +52,7 @@ const DrawerContent = props => {
 const styles = StyleSheet.create({
   flex: {
     flex: 1,
-     overflow:'hidden'
+    
   },
   container: {
     width: '92%',
@@ -97,7 +95,7 @@ const styles = StyleSheet.create({
     color: Color.white,
     fontFamily: Fonts.medium,
     fontSize: FontSize.font16,
-    marginLeft: wp('3%'),
+    marginLeft: wp('5%'),
   },
 });
 

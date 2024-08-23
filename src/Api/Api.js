@@ -1,0 +1,1 @@
+export const Api = 'https://onlinedemolink.com/custom_live/geteasytripapp/public/api/user'

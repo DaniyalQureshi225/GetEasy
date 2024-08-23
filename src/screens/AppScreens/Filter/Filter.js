@@ -1,58 +1,65 @@
 // Filter.js
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  TextInput,
-} from 'react-native';
-import FullScreenBg from '../../../Components/FullScreenBg';
-import ColorfulAutocomplete from '../../../Components/Test';
-import Icon from '../../../Components/Icon';
-import {Color, Fonts, FontSize, hp, wp} from '../../../Color/Color';
-import {drawerIcon, home, plane, user} from '../../../assets/Images';
-import BookingBg from '../../../Components/BookingBg';
-import BookingInput from '../../../Components/BookingInput';
-import DatePickerBtn from '../../../Components/DatePickerBtn';
-import DatePicker from 'react-native-date-picker';
+import React, { useState } from 'react';
+import { View, Linking } from 'react-native';
 import moment from 'moment';
-import Appbtn from '../../../Components/Appbtn';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
+import DatePicker from 'react-native-date-picker';
+import ScreenWraper from '../../../Components/ScreenWraper';
+import BookingBg2 from '../../../Components/BookingBg2';
+import PlaceInput from '../../../Components/PlaceInput';
+import Appbtn from '../../../Components/Appbtn';
 import BottomTab from '../../../Components/BottomTab';
+import { Color, wp, hp } from '../../../Color/Color';
+import { user, hotelpics } from '../../../assets/Images';
+import DatePickerBtn from '../../../Components/DatePickerBtn';
 
-const Filter = ({navigation}) => {
+const Filter = ({ navigation }) => {
   const [city, setCity] = useState('');
+  const [placeDetails, setPlaceDetails] = useState(null);
   const [date, setDate] = useState(new Date());
   const [date2, setDate2] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
+  const [myCity, setMyCity] = useState('');
+  
   const CheckIn = moment(date).format('YYYY-MM-DD');
   const CheckOut = moment(date2).format('YYYY-MM-DD');
   const CheckCurrent = moment(new Date()).format('YYYY-MM-DD');
-  const [adult, setAdult] = useState('');
-  const [young, setYoung] = useState('')
+
+  // Function to handle place details selection
+  const handlePlaceDetailsSelect = (details) => {
+    if (details && details.address_components) {
+      const locality = details.address_components.find(component =>
+        component.types.includes('locality') || component.types.includes('administrative_area_level_1')
+      );
+
+      if (locality) {
+        setMyCity(locality.long_name);
+        console.log('Place Details:', locality.long_name);
+      } else {
+        console.log('Locality not found in address components.');
+      }
+    } else {
+      console.log('Invalid details received.');
+    }
+  };
+
+  const handlePress = () => {
+    const url = `https://www.booking.com/searchresults.en-gb.html?ss=${myCity}&checkin=${CheckIn}&checkout=${CheckOut}`;
+    Linking.openURL(url).catch(err => console.error('Failed to open URL: ', err));
+  };
+
   return (
-    <>
-      <BookingBg
+    <ScreenWraper>
+      <BookingBg2
         userImg={user}
         txt1={'Hello Mitul Patel'}
         txt2={'Search Hotels'}
         OpenDrawer={() => navigation.toggleDrawer()}
-        mainImg={plane}>
-        <BookingInput
-          field={city}
-          setField={setCity}
-          inputWidht={{ width:wp('70%'), color:Color.black}}
-          type={'AntDesign'}
-          name={'search1'}
-          containerWidth={wp('90%')}
-          placeholder={'Search City Here'}
-          
-        />
-
-        <View style={{height: hp('50%')}}>
+        mainImg={hotelpics}
+        ml={wp('-20%')}
+      >
+        <View style={{ height: hp('50%'), marginTop: hp('10%') }}>
           <View
             style={{
               width: wp('90%'),
@@ -60,7 +67,8 @@ const Filter = ({navigation}) => {
               flexDirection: 'row',
               alignSelf: 'center',
               marginTop: hp('2%'),
-            }}>
+            }}
+          >
             <DatePickerBtn
               onPress={() => setOpen(true)}
               text={CheckIn !== CheckCurrent ? CheckIn : 'Check in'}
@@ -69,7 +77,7 @@ const Filter = ({navigation}) => {
             />
             <DatePickerBtn
               onPress={() => setOpen2(true)}
-              text={CheckOut !== CheckCurrent ? CheckOut : 'Check in'}
+              text={CheckOut !== CheckCurrent ? CheckOut : 'Check out'}
               type={'AntDesign'}
               name={'calendar'}
             />
@@ -82,50 +90,38 @@ const Filter = ({navigation}) => {
               flexDirection: 'row',
               alignSelf: 'center',
               marginTop: hp('0%'),
-            }}>
-            <BookingInput
-              field={adult}
-              setField={setAdult}
-              type={'Entypo'}
-              name={'man'}
-              containerWidth={wp('43%')}
-              placeholder={'adult'}
-              mt={hp('2%')}
-              keyboardType={'numeric'}
-              inputWidht={{ width:wp('30%'), color:Color.black}}
-              ml={2}
-            />
-            <BookingInput
-              field={young}
-              setField={setYoung}
-              inputWidht={{ width:wp('30%'), color:Color.black}}
-              type={'FontAwesome'}
-              name={'child'}
-              containerWidth={wp('43%')}
-              placeholder={'young'}
-              mt={hp('2%')}
-              keyboardType={'numeric'}
-              ml={2}
-            />
+            }}
+          >
+            {/* Add your BookingInput components here */}
           </View>
-          <HideWithKeyboard
-            style={{marginTop: 'auto', backgroundColor: Color.white}}>
-            <Appbtn
-              onPress={() => navigation.navigate('BookFlight')}
-              btnText={'Update Search'}
-            />
+
+          <HideWithKeyboard style={{ marginTop: 'auto', backgroundColor: Color.white }}>
+            <Appbtn onPress={() => handlePress()} btnText={'Update Search'} />
           </HideWithKeyboard>
         </View>
-      </BookingBg>
-            <HideWithKeyboard>
-            <BottomTab
-        isHome={true}
-        onPressFlight={() =>navigation.navigate('BookFlight')}
-        onPressCar={() => navigation.navigate('BookCar')}
-        onPressProfile={() => navigation.navigate('Profile')}
+      </BookingBg2>
+
+      <PlaceInput
+        field={city}
+        setField={setCity}
+        inputWidht={{ width: wp('70%'), color: Color.black }}
+        type={'AntDesign'}
+        name={'search1'}
+        containerWidth={wp('90%')}
+        placeholder={'Search City Here'}
+        onDetailsSelect={handlePlaceDetailsSelect} // Pass the function to handle place details
       />
-            </HideWithKeyboard>
-     
+
+      <HideWithKeyboard>
+        <View style={{ backgroundColor: Color.white }}>
+          <BottomTab
+            isHome={true}
+            onPressFlight={() => navigation.navigate('BookFlight')}
+            onPressCar={() => navigation.navigate('BookCar')}
+            onPressProfile={() => navigation.navigate('Profile')}
+          />
+        </View>
+      </HideWithKeyboard>
 
       <DatePicker
         modal
@@ -156,7 +152,7 @@ const Filter = ({navigation}) => {
           setOpen(false);
         }}
       />
-    </>
+    </ScreenWraper>
   );
 };
 

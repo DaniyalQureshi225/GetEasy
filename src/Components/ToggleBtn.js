@@ -11,7 +11,7 @@ const ToggleBtn = ({backgroundColor, color, onPress, name, text}) => {
         backgroundColor: backgroundColor,
         borderRadius: wp('20%'),
         width: wp('43%'),
-        height: hp('6%'),
+        height: hp('8%'),
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',

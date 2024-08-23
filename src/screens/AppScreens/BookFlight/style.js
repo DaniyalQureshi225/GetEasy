@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
       justifyContent: 'space-between',
       width: wp('90%'),
       alignSelf: 'center',
+      marginTop:hp('1%')
     },
     dateRow: {
       flexDirection: 'row',
@@ -23,6 +24,7 @@ export const styles = StyleSheet.create({
       width: wp('90%'),
       alignSelf: 'center',
       zIndex: -1,
+      marginTop:hp('1%')
     },
     buttonContainer: {
       marginTop: 'auto',

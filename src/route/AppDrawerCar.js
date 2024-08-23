@@ -9,9 +9,9 @@ import DrawerContent from '../Components/DrawerContent';
 import Profile from '../screens/AppScreens/Profile/Profile';
 import PrivacyPolicy from '../screens/AppScreens/PrivacyPolicy/PrivacyPolicy';
 import Faqs from '../screens/AppScreens/Faqs/Faqs';
-import TermsAndCondition from '../screens/Auth/TermsAndServices/TermsAndServices';
 import MyDrawer from './AppDrawer';
 import MyDrawerHotel from './AppDrawerHotel';
+import TermsAndCondition from '../screens/AppScreens/TermsAndServices/TermsAndServices';
 
 const Drawer = createDrawerNavigator();
 
@@ -33,6 +33,7 @@ function MyDrawerCar({navigation}) {
               size={wp('6%')}
               type="Ionicons"
               name="car-sport-outline"
+              style={{width:wp('6%')}}
             />
           ),
         }}
@@ -49,6 +50,7 @@ function MyDrawerCar({navigation}) {
               size={wp('6%')}
               type="Ionicons"
               name="airplane-outline"
+              style={{width:wp('6%')}}
             />
           ),
         }}
@@ -66,6 +68,7 @@ function MyDrawerCar({navigation}) {
               size={wp('6%')}
               type="FontAwesome"
               name="building-o"
+              style={{width:wp('6%')}}
             />
           ),
         }}
@@ -85,6 +88,7 @@ function MyDrawerCar({navigation}) {
               size={wp('6%')}
               type="FontAwesome"
               name="user-o"
+              style={{width:wp('6%')}}
             />
           ),
         }}
@@ -102,6 +106,7 @@ function MyDrawerCar({navigation}) {
               size={wp('6%')}
               type="Fontisto"
               name="file-1"
+              style={{width:wp('6%')}}
             />
           ),
         }}
@@ -112,13 +117,14 @@ function MyDrawerCar({navigation}) {
         component={PrivacyPolicy}
         options={{
           //   headerShown: false,
-          drawerLabel: 'Profile Policy',
+          drawerLabel: 'Privacy Policy',
           drawerIcon: ({color}) => (
             <Icon
               color={Color.white}
               size={wp('6%')}
               type="MaterialCommunityIcons"
               name="clipboard-file-outline"
+              style={{width:wp('6%')}}
             />
           ),
         }}
@@ -136,6 +142,7 @@ function MyDrawerCar({navigation}) {
               size={wp('6%')}
               type="MaterialCommunityIcons"
               name="account-question-outline"
+              style={{width:wp('6%')}}
             />
           ),
         }}

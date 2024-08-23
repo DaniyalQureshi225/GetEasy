@@ -19,7 +19,12 @@ export const Color = {
   textGray:"#9D9D9D",
   gray:'gray',
   otpBg:'#EFEFEF',
-  textBox:'#F1F2F2'
+  textBox:'#F1F2F2',
+  bottomTab:'#9D9FB2',
+  textBox2:'#F1F2e2',
+  red:'red',
+  denger:'#ed1c24',
+  success:'#21B531'
   
   
 };
@@ -93,19 +98,28 @@ export const drawerStyle = {
   swipeEnabled: false,
   headerShown: false,
   gestureEnabled: false,
+  drawerType:'slide',
+  overlayColor: 'transparent',
+  drawerHideStatusBarOpen:true,
+  sceneContainerStyle:{
+    backgroundColor:Color.border
+  },
   drawerStyle: {
     backgroundColor: Color.border,
-    width: wp('100%'),
+    width: wp('60%'),
+    
   },
   drawerItemStyle: {
     width: wp('80%'),
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
     borderBottomWidth:1,
-    borderColor:Color.white
+    borderColor:Color.white,
+    
   },
   drawerActiveTintColor: Color.white,
   drawerActiveBackgroundColor: Color.border,
+  
   drawerLabelStyle: {
    
     fontSize: FontSize.font16,

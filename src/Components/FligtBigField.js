@@ -30,7 +30,7 @@ const FlightBigField = ({
         backgroundColor: Color.textBox,
         width: containerWidth || wp('90%'),
         alignSelf: 'center',
-        marginTop: hp('2%'),
+        marginTop: hp('3%'),
         height: hp('8%'),
         alignItems: 'center',
         paddingHorizontal: wp('5%'),
@@ -61,7 +61,9 @@ const FlightBigField = ({
             color: Color.primaryColor,
             textTransform: 'uppercase',
             letterSpacing: wp('1%'),
-            fontSize:FontSize.font10
+            fontSize:FontSize.font10,
+            fontFamily:Fonts.bold,
+            marginLeft:wp('2%')
           }}>
           {text}
         </Text>
@@ -70,8 +72,9 @@ const FlightBigField = ({
         <View
             style={{
               flexDirection: 'row',
-              alignItems: 'center',
-              
+              alignItems:'center',
+              width:wp('25%'),
+              marginLeft:wp('1%')
             }}>
             <TextInput
               placeholderTextColor={Color.gray}
@@ -83,13 +86,13 @@ const FlightBigField = ({
                 width: textWidth || wp('20%'),
                 fontFamily: Fonts.bold,
                 fontSize:FontSize.font16,
-               
+                marginBottom:hp('-0.5%')
                 
               }}
               keyboardType={'numeric'}
               maxLength={2}
             />
-            <Text style={{color: Color.gray, marginLeft: wp('2%'), marginBottom:hp('1%')}}>{t1}</Text>
+            <Text style={{color: Color.gray, marginLeft: wp('0.5%')}}>{t1}</Text>
           </View>
 
           <View
@@ -97,6 +100,7 @@ const FlightBigField = ({
               flexDirection: 'row',
               alignItems: 'center',
               marginLeft: wp('2%'),
+              width:wp('25%')
             }}>
             <TextInput
               placeholderTextColor={Color.gray}
@@ -107,12 +111,13 @@ const FlightBigField = ({
                 color: Color.black,
                 width: textWidth || wp('20%'),
                 fontFamily: Fonts.bold,
-                fontSize:FontSize.font16
+                fontSize:FontSize.font16,
+                marginBottom:hp('-0.5%')
               }}
               keyboardType={'numeric'}
               maxLength={2}
             />
-            <Text style={{color: Color.gray, marginLeft: wp('2%'), marginBottom:hp('1%')}}>{t2}</Text>
+            <Text style={{color: Color.gray, marginLeft: wp('0.5%')}}>{t2}</Text>
           </View>
 
           <View
@@ -120,6 +125,7 @@ const FlightBigField = ({
               flexDirection: 'row',
               alignItems: 'center',
               marginLeft: wp('2%'),
+              width:wp('25%')
             }}>
             <TextInput
               placeholderTextColor={Color.gray}
@@ -130,12 +136,13 @@ const FlightBigField = ({
                 color: Color.black,
                 width: textWidth || wp('20%'),
                 fontFamily: Fonts.bold,
-                fontSize:FontSize.font16
+                fontSize:FontSize.font16,
+                marginBottom:hp('-0.5%')
               }}
               keyboardType={'numeric'}
               maxLength={2}
             />
-            <Text style={{color: Color.gray, marginLeft: wp('2%'), marginBottom:hp('1%')}}>{t3}</Text>
+            <Text style={{color: Color.gray, marginLeft: wp('0.5%')}}>{t3}</Text>
           </View>
         </View>
       </View>

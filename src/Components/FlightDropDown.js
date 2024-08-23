@@ -25,7 +25,7 @@ const FlightDropDown = ({
         backgroundColor: Color.textBox,
         width: containerWidth || wp('90%'),
         alignSelf: 'center',
-        marginTop: hp('2%'),
+        marginTop: hp('3%'),
         height: hp('8%'),
         alignItems: 'center',
         paddingHorizontal: wp('5%'),
@@ -55,6 +55,7 @@ const FlightDropDown = ({
             textTransform: 'uppercase',
             letterSpacing: wp('1%'),
             fontSize: FontSize.font10,
+            fontFamily:Fonts.bold
           }}>
           {text}
         </Text>
@@ -80,7 +81,7 @@ const FlightDropDown = ({
             name={open ?'chevron-small-up' : 'chevron-small-down'}
             size={wp('8%')}
             color={Color.gray}
-            style={{height: hp('5%')}}
+            style={{height: hp('5%'), position:'absolute', top:hp('-2%'), right:wp('2%')}}
           />
         </View>
 
@@ -113,7 +114,7 @@ const FlightDropDown = ({
           <TouchableOpacity
           onPress={()=>{setOpen(!open), setClass1('First')}}
           style={styles.btn}>
-            <Text style={{color: Color.gray}}>First</Text>
+            <Text style={{color: Color.gray}}>First Class</Text>
           </TouchableOpacity>
         </View>
         }

@@ -47,7 +47,7 @@ const ProfileThemeBg = ({
             style={{
               fontFamily: Fonts.bold,
               color: Color.white,
-              fontSize: FontSize.font16, 
+              fontSize: FontSize.font20, 
             }}>{text}</Text>
         </View>
         <View style={{flex:1, alignItems:'flex-end'}}>

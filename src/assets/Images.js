@@ -9,6 +9,7 @@ export {default as dot3} from './dot3.png';
 export {default as back} from './back.png';
 export {default as logoWhite} from './logoWhite.png';
 export {default as placeholder} from './placeholder.png';
+export {default as placeholder1} from './placeholder1.png';
 export {default as cam} from './cam.png';
 export {default as email} from './email.png';
 export {default as phoneIcon} from './phoneIcon.png';
@@ -30,7 +31,16 @@ export {default as home} from './home.png';
 export {default as flight} from './flight.png';
 export {default as car22} from './car22.png';
 export {default as pro} from './pro.png';
+export {default as cars} from './cars.png';
+export {default as clock} from './clock.png';
+export {default as AppIcon} from './AppIcon.png';
+export {default as hotelpics} from './hotelpics.png';
 
+
+
+//json
+export {default as check} from './check.json'
+export {default as loader} from './loader.json'
 
 
 

@@ -21,7 +21,7 @@ const FlightBtn = ({
         backgroundColor: Color.textBox,
         width: containerWidth || wp('90%'),
         alignSelf: 'center',
-        marginTop: hp('2%'),
+        marginTop: hp('3%'),
         height: hp('8%'),
         alignItems: 'center',
         paddingHorizontal: wp('5%'),
@@ -50,7 +50,8 @@ const FlightBtn = ({
             color: Color.primaryColor,
             textTransform: 'uppercase',
             letterSpacing: wp('1%'),
-            fontSize:FontSize.font10
+            fontSize:FontSize.font10,
+            fontFamily:Fonts.bold
           }}>
           {text}
         </Text>

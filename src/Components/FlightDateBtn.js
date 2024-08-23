@@ -43,6 +43,7 @@ const FlightDateBtn = ({
           width: ww || wp('8%'),
           height: hh || wp('8%'),
           marginBottom: hp('0%'),
+          tintColor:Color.primaryColor
         }}
       />
       <View style={{marginLeft: wp('2%'), marginTop:hp('2%')}}>
@@ -50,8 +51,9 @@ const FlightDateBtn = ({
           style={{
             color: Color.primaryColor,
             textTransform: 'uppercase',
-            letterSpacing: wp('1%'),
-            fontSize:FontSize.font10
+            letterSpacing: wp('0.48%'),
+            fontSize:FontSize.font10,
+            fontFamily:Fonts.bold
           }}>
           {text}
         </Text>

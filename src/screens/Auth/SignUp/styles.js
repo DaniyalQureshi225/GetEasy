@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     },
     signupText: {
       color: Color.black,
-      width: wp('50%'),
+      width: wp('55%'),
       textAlign: 'center',
     },
     image: {
@@ -37,5 +37,7 @@ export const styles = StyleSheet.create({
       width: wp('25%'),
       height: hp('25%'),
     },
+    validation:{color:Color.red, fontSize:FontSize.font10, fontFamily:Fonts.light},
+    validation2:{color:Color.red, fontSize:FontSize.font10, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('10%')}
    
   });

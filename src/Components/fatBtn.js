@@ -35,6 +35,7 @@ const FatBtn = ({mt, text, type, name, onPress}) => {
           color: Color.white,
           marginLeft: wp('2%'),
           fontFamily: Fonts.bold,
+          fontSize:FontSize.font16
         }}>
        {text}
       </Text>

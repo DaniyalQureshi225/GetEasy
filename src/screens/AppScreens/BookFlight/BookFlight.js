@@ -14,6 +14,8 @@ import FlightDateBtn from '../../../Components/FlightDateBtn';
 import FlightDropDown from '../../../Components/FlightDropDown';
 import { styles } from './style';
 import BottomTab from '../../../Components/BottomTab';
+import ScreenWraper from '../../../Components/ScreenWraper';
+import TwoWayFlightDropDown from '../../../Components/TowWayFlightDropDown';
 
 const BookFlight = ({navigation}) => {
   const [date, setDate] = useState(new Date());
@@ -31,8 +33,9 @@ const BookFlight = ({navigation}) => {
   const [weight, setWeight] = useState('');
 
   return (
-    <>
-      <BookingBg
+   
+     <ScreenWraper>
+       <BookingBg
         userImg={user}
         txt1={'Hello Mitul Patel'}
         txt2={'Search Flights'}
@@ -146,10 +149,10 @@ const BookFlight = ({navigation}) => {
               hh={wp('9%')}
             />
 
-            <FlightDropDown
+            <TwoWayFlightDropDown
               text={'Class'}
               img={chair}
-              textWidth={wp('60%')}
+              textWidth={wp('80%')}
               containerWidth={wp('90%')}
               ww={wp('6%')}
               hh={wp('7%')}
@@ -202,7 +205,7 @@ const BookFlight = ({navigation}) => {
             />
           </>
         )}
-        <Appbtn onPress={()=>navigation.navigate('BookCar')} btnText={'Search Now'} />
+        <Appbtn mt={hp('3%')} btnText={'Search Now'} />
       </BookingBg>
       <HideWithKeyboard style={styles.buttonContainer}>
        
@@ -242,7 +245,8 @@ const BookFlight = ({navigation}) => {
           setOpen(false);
         }}
       />
-    </>
+     </ScreenWraper>
+   
   );
 };
 

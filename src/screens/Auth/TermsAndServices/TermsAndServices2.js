@@ -4,7 +4,7 @@ import AppThemeBg from '../../../Components/AppThemeBg';
 import {Color, wp} from '../../../Color/Color';
 import {Lorem} from '../../../Components/Data';
 
-const TermsAndCondition = ({navigation}) => {
+const TermsAndCondition2 = ({navigation}) => {
   return (
     <AppThemeBg
       backButton={true}
@@ -46,4 +46,4 @@ const TermsAndCondition = ({navigation}) => {
   );
 };
 
-export default TermsAndCondition;
+export default TermsAndCondition2;

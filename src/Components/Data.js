@@ -15,5 +15,6 @@ export const ResetPasswordLine1 = "Enter a Your New Password to Reset Password";
 export const PasswordReset = "Password Reset";
 export const PasswordResetTex = "Password has been Reset Sign in to continue";
 export const GoogleMapKey = "AIzaSyBTbMcgGot8-R7Rmn7ks6u7PuAeHa-qdB8";
+export const GoogleMapKeyPersonal = 'AIzaSyDWGr0c745WGA6W5logZ5Rwv4cvrT9WfgQ';
 export const LookingForTex = "What you are looking for?";
 export const LoremBig = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, "

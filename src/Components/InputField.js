@@ -2,6 +2,7 @@
 import React from 'react';
 import {View, TextInput, Image, Text} from 'react-native';
 import {wp, hp, FontSize, Color, Fonts} from '../Color/Color'; // Ensure these are defined and imported properly
+import {TextInputMask} from 'react-native-masked-text';
 
 const InputField = ({
   marginTop,
@@ -17,6 +18,7 @@ const InputField = ({
   label,
   labelTex,
   blueTheme,
+  phone
 }) => {
   return (
     <>
@@ -52,7 +54,29 @@ const InputField = ({
             tintColor: blueTheme ? Color.white : Color.border,
           }}
         />
+       {
+          !phone ?
         <TextInput
+          placeholder={placeholderText}
+          placeholderTextColor={blueTheme ? Color.white : Color.border}
+          secureTextEntry={secure}
+          style={{
+            marginLeft: wp('2%'),
+            fontSize: FontSize.font14,
+            width: wp('65%'),
+            color:blueTheme ? Color.white : Color.primaryColor,
+          }}
+          maxLength={maxlength || 50}
+          value={field}
+          onChangeText={setField}
+          keyboardType={keyboardType || 'default'}
+        />
+       :
+          <TextInputMask
+          type={'custom'}
+          options={{
+            mask: '(999) 999-999 99',
+          }}
           placeholder={placeholderText}
           placeholderTextColor={blueTheme ? Color.white : Color.border}
           secureTextEntry={secure}
@@ -67,6 +91,8 @@ const InputField = ({
           onChangeText={setField}
           keyboardType={keyboardType || 'default'}
         />
+
+        }
       </View>
     </>
   );

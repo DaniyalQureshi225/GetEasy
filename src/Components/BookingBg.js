@@ -3,7 +3,7 @@ import {wp, hp, FontSize, Fonts, Color} from '../Color/Color';
 import React from 'react';
 import {drawerIcon} from '../assets/Images';
 
-const BookingBg = ({children, userImg, txt1, txt2, mainImg, OpenDrawer}) => {
+const BookingBg = ({children, userImg, txt1, txt2, mainImg, OpenDrawer, ml, tf}) => {
   return (
     <View
       style={{
@@ -51,10 +51,11 @@ const BookingBg = ({children, userImg, txt1, txt2, mainImg, OpenDrawer}) => {
         source={mainImg}
         resizeMode="contain"
         style={{
-          width: wp('100%'),
-          height: wp('40%'),
-          marginLeft: wp('15%'),
-          transform: [{rotate: '5deg'}],
+          width: wp('130%'),
+          height: wp('50%'),
+          marginLeft: ml  || wp('10%'),
+          transform:[{rotate: tf  || '5deg'}],
+         
         }}
       />
 
@@ -63,7 +64,7 @@ const BookingBg = ({children, userImg, txt1, txt2, mainImg, OpenDrawer}) => {
       showsVerticalScrollIndicator={false}
         style={{
           backgroundColor: Color.white,
-          marginTop: hp('-5%'),
+          marginTop: hp('-6%'),
           borderTopRightRadius: wp('5%'),
           borderTopLeftRadius: wp('5%'),
           zIndex: -1,

@@ -42,7 +42,7 @@ import {
             alignSelf: 'center',
             marginTop: hp('4%'),
             fontFamily: Fonts.bold,
-            fontSize: FontSize.font18,
+            fontSize: FontSize.font20,
             color: Color.primaryColor,
           }}>
           {heading}
@@ -71,15 +71,17 @@ import {
             borderRadius: wp('10%'),
             alignItems: 'center',
             justifyContent: 'center',
-            marginTop: hp('10%'),
+            marginTop: hp('18%'),
           }}>
           <Text
             style={{
               color: Color.white,
               fontFamily: Fonts.bold,
               fontSize: FontSize.font16,
+              textTransform:'uppercase',
+              letterSpacing:wp('1%')
             }}>
-            N e x t
+            Next
           </Text>
         </TouchableOpacity>
        
