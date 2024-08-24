@@ -109,7 +109,7 @@ const Filter = ({ navigation }) => {
         name={'search1'}
         containerWidth={wp('90%')}
         placeholder={'Search City Here'}
-        onDetailsSelect={handlePlaceDetailsSelect} // Pass the function to handle place details
+        onDetailsSelect={handlePlaceDetailsSelect} 
       />
 
       <HideWithKeyboard>

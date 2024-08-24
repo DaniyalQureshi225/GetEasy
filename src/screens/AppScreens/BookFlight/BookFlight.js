@@ -1,3 +1,48 @@
+// import { View } from "react-native";
+// import React, { useState } from "react";
+// import Auto from "../../../Components/Auto";
+// import FlightBtn from "../../../Components/FlightInput";
+// import { takeOff } from "../../../assets/Images";
+// import { wp } from "../../../Color/Color";
+
+
+// const BookFlight = () =>{
+
+//   const [field, setField] = useState('');
+//   const [from, setFrom] = useState('')
+//   const handlePlaceSelect = (city, details) => {
+//     // Set the city name to the field
+//     setField(city);
+//     // Pass the details to the parent component
+//     // if (onDetailsSelect) {
+//     //   onDetailsSelect(details);
+//     // }
+//     console.log('Selected City:', city);
+//     console.log('Selected Place Details:', details);
+//   }
+
+//   return(
+//     // <Auto onPlaceSelect={handlePlaceSelect}/>
+//     <FlightBtn
+//               field={from}
+//               setField={setFrom}
+//               text={'From'}
+//               img={takeOff}
+//               placeholder={'From City'}
+//               textWidth={wp('80%')}
+//               auto={true}
+//               zIndex={100}
+//               position={'relative'}
+//             />
+
+//   )
+// };
+
+// export default BookFlight
+
+
+
+
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Color, hp, wp } from '../../../Color/Color';
@@ -69,6 +114,9 @@ const BookFlight = ({navigation}) => {
               img={takeOff}
               placeholder={'From City'}
               textWidth={wp('80%')}
+              auto={true}
+              zIndex={100}
+              position={'relative'}
             />
 
             <FlightBtn

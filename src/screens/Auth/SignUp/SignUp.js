@@ -90,7 +90,7 @@ const SignUp = ({navigation}) => {
 
         <InputField
           img={email}
-          placeholderText={'Enter your Email'}
+          placeholderText={'Enter your Email'} 
           field={emailId}
           setField={setEmailId}
           imgWidth={wp('5.5%')}

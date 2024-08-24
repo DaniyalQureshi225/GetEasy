@@ -75,7 +75,7 @@ const InputField = ({
           <TextInputMask
           type={'custom'}
           options={{
-            mask: '(999) 999-999 99',
+            mask: '(999) 999-999 9999',
           }}
           placeholder={placeholderText}
           placeholderTextColor={blueTheme ? Color.white : Color.border}

@@ -8,7 +8,7 @@ const BookingBg = ({children, userImg, txt1, txt2, mainImg, OpenDrawer, ml, tf})
     <View
       style={{
         flex: 1,
-        backgroundColor: Color.primaryColor,
+        backgroundColor: Color.primaryColor, zIndex:-1, position:'relative'
       }}>
       <View
         style={{
@@ -67,7 +67,8 @@ const BookingBg = ({children, userImg, txt1, txt2, mainImg, OpenDrawer, ml, tf})
           marginTop: hp('-6%'),
           borderTopRightRadius: wp('5%'),
           borderTopLeftRadius: wp('5%'),
-          zIndex: -1,
+          position:'relative',
+          zIndex:3
         }}>
         {children}
       </ScrollView>

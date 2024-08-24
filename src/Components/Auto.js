@@ -55,6 +55,7 @@ export const styles = StyleSheet.create({
     searchbar: {
         description: {
             fontWeight: 'bold',
+            
         },
         textInputContainer: {
             backgroundColor: Color.textBox,
@@ -63,7 +64,7 @@ export const styles = StyleSheet.create({
             marginTop: wp('0.8%'),
             color: Color.black,
             alignItems: 'center',
-            zIndex: 2,  // Increased zIndex
+            zIndex: 9999, 
         },
         description: {
             color: Color.black,
@@ -84,8 +85,9 @@ export const styles = StyleSheet.create({
             borderWidth: 1,
             position: 'absolute',
             width: wp('70%'),
-            zIndex: 100,  
+            zIndex: 99999,  
             marginTop: 20,
+            
         },
         row: {
             backgroundColor: Color.white,

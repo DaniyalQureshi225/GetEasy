@@ -2,6 +2,7 @@ import {TextInput, View, Text, Image} from 'react-native';
 import React from 'react';
 import {wp, hp, FontSize, Fonts, Color} from '../Color/Color';
 import {takeOff} from '../assets/Images';
+import Auto from './Auto';
 
 const FlightBtn = ({
   field,
@@ -13,6 +14,11 @@ const FlightBtn = ({
   placeholder,
   containerWidth,
   textWidth,
+  auto,
+  position,
+  top,
+  right,
+  zIndex
 }) => {
   return (
     <View
@@ -34,6 +40,10 @@ const FlightBtn = ({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+        zIndex:zIndex,
+        position:position,
+        top:top,
+        right:right,
       }}>
       <Image
         source={img}
@@ -55,7 +65,9 @@ const FlightBtn = ({
           }}>
           {text}
         </Text>
-        <TextInput
+        {
+          auto ? <Auto/> : 
+          <TextInput
           placeholderTextColor={Color.gray}
           placeholder={placeholder}
           value={field}
@@ -68,6 +80,9 @@ const FlightBtn = ({
           }}
           keyboardType={'default'}
         />
+
+        }
+        
       </View>
     </View>
   );
