@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Linking} from 'react-native';
 import {Color, hp, wp} from '../../../Color/Color';
 import {
   calender,
@@ -25,6 +25,7 @@ import FlightDropDown from '../../../Components/FlightDropDown';
 import {styles} from './style';
 import BottomTab from '../../../Components/BottomTab';
 import ScreenWraper from '../../../Components/ScreenWraper';
+import MyDrawer from '../../../route/AppDrawer';
 
 const BookCar = ({navigation}) => {
   const [date, setDate] = useState(new Date());
@@ -43,37 +44,94 @@ const BookCar = ({navigation}) => {
   const PickUpTime = moment(time).format('HH:mm');
   const DropOffTime = moment(time2).format('HH:mm');
   const CurrentTime = moment(new Date()).format('HH:mm');
+  const [lat, setLat] = useState('');
+  const [lang, setLang] = useState('');
+  const [lat2, setLat2] = useState('');
+  const [lang2, setLang2] = useState('');
+
+  const doDay = moment(date).format('DD');
+  const doHour = moment(time).format('HH');
+  const doMint = moment(time).format('mm');
+  const doMonth = moment(date).format('MM');
+  const doYear = moment(date).format('YYYY');
+
+
+  const puDay = moment(date2).format('DD');
+  const puHour = moment(time2).format('HH');
+  const puMint = moment(time2).format('mm');
+  const puMonth = moment(date2).format('MM');
+  const puYear = moment(date2).format('YYYY');
+
+
+  const [myCity, setMyCity] = useState('');
+  const [myCity2, setMyCity2] = useState('');
+
+  
+
+  const handleCitySelect = city => {
+    setMyCity(city);
+  };
+
+  const handleDetails = details => {
+  setLat(details?.details?.geometry?.location?.lat);
+  setLang(details?.details?.geometry?.location?.lng)  
+  };
+
+
+  const handleDetails2 = details => {
+    setLat2(details?.details?.geometry?.location?.lat);
+    setLang2(details?.details?.geometry?.location?.lng)  
+    };
+
+
+  
+  const handleCitySelect2 = city => {
+    setMyCity2(city);
+  };
+
+  const handlePress = () => {
+
+    const url = `https://cars.booking.com/search-results?=&coordinates=${lat} ${lang}&doDay=${doDay}&doHour=${doHour}&doMinute=${doMint}&doMonth=${doMonth}&doYear=${doYear}&driversAge=20&dropCoordinates=${lat2} ${lang2}&dropLocation=&dropLocationName=${myCity2}&ftsType=C&location=&locationName=${myCity}&preflang=en&puDay=${puDay}&puHour=${puHour}&puMinute=${puMint}&puMonth=${puMonth}&puYear=${puYear}`;
+    Linking.openURL(url).catch(err => console.error('Failed to open URL: ', err));
+   
+  };
 
   return (
     <ScreenWraper>
       <BookingBg
-        OpenDrawer={()=>navigation.toggleDrawer()}
+        OpenDrawer={() => navigation.toggleDrawer()}
         userImg={user}
         txt1={'Hello Mitul Patel'}
         txt2={'Search Cars'}
         mainImg={cars}
         ml={wp('-5%')}
-        tf={'0deg'}
-        >
+        tf={'0deg'}>
         <View style={{height: hp('2%')}} />
         <FlightBtn
-          field={from}
-          setField={setFrom}
-          text={'Pick-Up'}
+          // field={from}
+          // setField={setFrom}
+          text={'From'}
           img={takeOff}
-          placeholder={'Location'}
+          placeholder={'From City'}
           textWidth={wp('80%')}
+          auto={true}
+          zIndex={100}
+          position={'relative'}
+          onCitySelect={handleCitySelect}
+          onSelecetDetails={handleDetails}
         />
 
         <FlightBtn
-          field={to}
-          setField={setTo}
-          text={'Drop-Off'}
+          text={'To'}
           img={land}
-          placeholder={'Destination'}
+          placeholder={'To City'}
           textWidth={wp('80%')}
           ww={wp('8%')}
           hh={wp('9%')}
+          auto={true}
+          onCitySelect={handleCitySelect2}
+          zIndex={50}
+          onSelecetDetails={handleDetails2}
         />
 
         <View style={styles.dateRow}>
@@ -100,7 +158,7 @@ const BookCar = ({navigation}) => {
           />
         </View>
 
-        <View style={[styles.dateRow, {marginBottom:hp('5%')}]}>
+        <View style={[styles.dateRow, {marginBottom: hp('5%')}]}>
           <FlightDateBtn
             onPress={() => setOpen3(true)}
             field={time}
@@ -125,16 +183,15 @@ const BookCar = ({navigation}) => {
         </View>
       </BookingBg>
       <HideWithKeyboard style={styles.buttonContainer}>
-       
-          <Appbtn btnText={'Search Now'} />
-          <BottomTab
-        isCar={true}
-        onPressHome={() => navigation.navigate('Filter')}
-        onPressFlight={() => navigation.navigate('BookFlight')}
-        onPressProfile={() => navigation.navigate('Profile')}
-      />
+        <Appbtn onPress={()=>handlePress()} btnText={'Search Now'} />
+        <BottomTab
+          isCar={true}
+          onPressHome={() => navigation.navigate('Filter')}
+          onPressFlight={() => navigation.navigate('BookFlight')}
+          onPressProfile={() => navigation.navigate('Profile')}
+        />
       </HideWithKeyboard>
-     
+
       <DatePicker
         modal
         mode={'date'}
@@ -197,3 +254,4 @@ const BookCar = ({navigation}) => {
 };
 
 export default BookCar;
+

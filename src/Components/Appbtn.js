@@ -2,9 +2,10 @@ import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import {wp, Color, FontSize, Fonts, hp, ls} from '../Color/Color';
 import React from 'react';
 
-const Appbtn = ({onPress, btnText, mt, mb, ls}) => {
+const Appbtn = ({onPress, btnText, mt, mb, ls, disabled}) => {
   return (
     <TouchableOpacity
+      disabled={disabled}
       activeOpacity={0.7}
       onPress={onPress}
       style={[

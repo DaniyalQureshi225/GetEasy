@@ -1,20 +1,17 @@
-// PlaceInput.js
-import { TextInput, Text, View } from "react-native";
-import React from "react";
-import { wp, hp, Color } from "../Color/Color";
-import Icon from "./Icon";
-import Auto from "./Auto";
+import React from 'react';
+import { View } from 'react-native';
+import Icon from './Icon';
+import Auto from './Auto';
+import { Color, wp, hp } from './../Color/Color';
 
-const PlaceInput = ({ field, setField, inputWidht, keyboardType, type, name, containerWidth, placeholder, mt, onDetailsSelect }) => {
+const PlaceInput = ({ field, setField, inputWidht, type, name, containerWidth, placeholder, mt, onDetailsSelect }) => {
   const handlePlaceSelect = (city, details) => {
-    // Set the city name to the field
-    setField(city);
-    // Pass the details to the parent component
+    console.log('>?>?>', city);
+
+    setField(city) // Update city state in Filter component
     if (onDetailsSelect) {
-      onDetailsSelect(details);
+      onDetailsSelect(details); // Forward place details
     }
-    console.log('Selected City:', city);
-    console.log('Selected Place Details:', details);
   };
 
   return (
@@ -31,7 +28,7 @@ const PlaceInput = ({ field, setField, inputWidht, keyboardType, type, name, con
         paddingHorizontal: wp('5%'),
         justifyContent: 'space-between',
         position: 'absolute',
-        top: hp('30%')
+        top: hp('30%'),
       }}
     >
       <Auto onPlaceSelect={handlePlaceSelect} />

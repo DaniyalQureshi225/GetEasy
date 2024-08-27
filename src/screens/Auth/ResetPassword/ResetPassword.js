@@ -104,13 +104,13 @@ const ResetPassword = ({navigation, route}) => {
             imgHeight={wp('6%')}
           />
           {show && !password ? (
-            <Text style={{color:Color.red, fontSize:FontSize.font10, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('10%')}}>Please enter your password</Text>
+            <Text style={{color:Color.red, fontSize:FontSize.font14, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('10%')}}>Please enter your password</Text>
           ) : show && password && password.length < 8 ? (
-            <Text style={{color:Color.red, fontSize:FontSize.font10, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('10%')}}>
+            <Text style={{color:Color.red, fontSize:FontSize.font14, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('10%')}}>
               Password must be at least 8 characters long
             </Text>
           ) : show && password && !/[A-Z]/.test(password) ? (
-            <Text style={{color:Color.red, fontSize:FontSize.font10, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('10%')}}>
+            <Text style={{color:Color.red, fontSize:FontSize.font14, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('10%')}}>
               Password must include at least one uppercase letter
             </Text>
           ) : null}
@@ -125,9 +125,9 @@ const ResetPassword = ({navigation, route}) => {
             imgHeight={wp('6%')}
           />
           {show && !confirmPassword ? (
-            <Text style={{color:Color.red, fontSize:FontSize.font10, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('10%')}}>Please confirm your password</Text>
+            <Text style={{color:Color.red, fontSize:FontSize.font14, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('10%')}}>Please confirm your password</Text>
           ) : show && confirmPassword && confirmPassword !== password ? (
-            <Text style={{color:Color.red, fontSize:FontSize.font10, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('10%')}}>Passwords do not match</Text>
+            <Text style={{color:Color.red, fontSize:FontSize.font14, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('10%')}}>Passwords do not match</Text>
           ) : null}
           <Text
             style={{

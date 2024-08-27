@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         overflow:'hidden',
-        zIndex:-1,
-        position:'relative'
+        
     }
 })

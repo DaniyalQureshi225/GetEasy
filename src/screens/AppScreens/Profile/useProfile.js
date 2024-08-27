@@ -66,7 +66,6 @@ const useProfile = ({ navigation }) => {
     }
   };
 
-  console.log(phone.length)
 
   const fetchData = async (token) => {
     try {

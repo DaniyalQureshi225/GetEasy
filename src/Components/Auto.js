@@ -38,8 +38,12 @@ const Auto = ({ onPlaceSelect }) => {
             onPress={(data, details = null) => {
                 if (details) {
                     const city = getCityName(details.address_components);
+                    const { lat, lng } = details.geometry.location; // Extract latitude and longitude
+                    console.log(`City: ${city}`);
+                    console.log(`Latitude: ${lat}`);
+                    console.log(`Longitude: ${lng}`);
                     // Call the callback function with the selected city name and other details
-                    onPlaceSelect(city, details);
+                    onPlaceSelect(city, { lat, lng, details });
                 } else {
                     console.error("Details not available");
                 }
@@ -51,11 +55,10 @@ const Auto = ({ onPlaceSelect }) => {
 
 export default Auto;
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     searchbar: {
         description: {
             fontWeight: 'bold',
-            
         },
         textInputContainer: {
             backgroundColor: Color.textBox,
@@ -87,7 +90,6 @@ export const styles = StyleSheet.create({
             width: wp('70%'),
             zIndex: 99999,  
             marginTop: 20,
-            
         },
         row: {
             backgroundColor: Color.white,
@@ -98,3 +100,5 @@ export const styles = StyleSheet.create({
         },
     },
 });
+
+

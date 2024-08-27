@@ -91,9 +91,9 @@ const ForgetPassword = ({navigation}) => {
           />
 
           {show && !emailId ? (
-            <Text style={{color:Color.red, fontSize:FontSize.font10, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('10%')}}>Please enter your email</Text>
+            <Text style={{color:Color.red, fontSize:FontSize.font14, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('10%')}}>Please enter your email</Text>
           ) : show && emailId && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailId) ? (
-            <Text style={{color:Color.red, fontSize:FontSize.font10, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('10%')}}>
+            <Text style={{color:Color.red, fontSize:FontSize.font14, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('10%')}}>
               Please enter a valid email address
             </Text>
           ) : null}

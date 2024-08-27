@@ -2,6 +2,7 @@ import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 import {wp, hp, FontSize, Fonts, Color} from '../Color/Color';
 import React from 'react';
 import {drawerIcon} from '../assets/Images';
+import ShimmerPlaceholder from 'react-native-shimmer-placeholder';
 
 const BookingBg2 = ({children, userImg, txt1, txt2, mainImg, OpenDrawer, ml, tf}) => {
   return (
@@ -26,7 +27,14 @@ const BookingBg2 = ({children, userImg, txt1, txt2, mainImg, OpenDrawer, ml, tf}
           />
         </TouchableOpacity>
 
-        <Image source={userImg} resizeMode='contain' style={{width: wp('10%'), height: wp('10%')}} />
+       
+        
+          <Image source={userImg} resizeMode='contain' style={{width: wp('10%'), height: wp('10%')}} />
+         
+        
+
+        
+
       </View>
 
       <Text

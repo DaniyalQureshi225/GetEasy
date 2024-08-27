@@ -82,7 +82,7 @@ const SignUp = ({navigation}) => {
         />
         {show && !user ? (
           <Text style={styles.validation2}>Please enter username</Text>
-        ) : show && user && user.length < 3 ? (
+        ) : show && user && user.trim().length < 3 ? (
           <Text style={styles.validation2}>
             Username should be at least 3 characters
           </Text>
@@ -108,19 +108,19 @@ const SignUp = ({navigation}) => {
 
         <InputField
           img={phoneIcon}
-          placeholderText={'Phone Number'}
+          placeholderText={'(999) 999-9999'}
           field={phone}
           setField={setPhone}
           keyboardType={'numeric'}
-          maxlength={16}
+          maxlength={14}
           phone={true}
           marginTop={hp('1%')}
         />
         {show && !phone ? (
           <Text style={styles.validation2}>Please enter your phone number</Text>
-        ) : show && phone && phone.length < 15 ? (
+        ) : show && phone && phone.length < 14 ? (
           <Text style={styles.validation2}>
-            Phone number must be at least 11 digits long
+            Phone number incorrect
           </Text>
         )  : null}
 

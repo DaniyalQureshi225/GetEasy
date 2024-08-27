@@ -1,4 +1,3 @@
-// Filter.js
 import React, { useState } from 'react';
 import { View, Linking } from 'react-native';
 import moment from 'moment';
@@ -12,29 +11,36 @@ import BottomTab from '../../../Components/BottomTab';
 import { Color, wp, hp } from '../../../Color/Color';
 import { user, hotelpics } from '../../../assets/Images';
 import DatePickerBtn from '../../../Components/DatePickerBtn';
+import useFilter from './useFilter';
 
 const Filter = ({ navigation }) => {
+
+  const {data} = useFilter();
+
+  console.log(data);
+
+
   const [city, setCity] = useState('');
-  const [placeDetails, setPlaceDetails] = useState(null);
   const [date, setDate] = useState(new Date());
   const [date2, setDate2] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [myCity, setMyCity] = useState('');
-  
+
   const CheckIn = moment(date).format('YYYY-MM-DD');
   const CheckOut = moment(date2).format('YYYY-MM-DD');
   const CheckCurrent = moment(new Date()).format('YYYY-MM-DD');
 
-  // Function to handle place details selection
   const handlePlaceDetailsSelect = (details) => {
-    if (details && details.address_components) {
+    console.log('Received details:', details);
+    
+    if (details && details?.details?.address_components) {
       const locality = details.address_components.find(component =>
         component.types.includes('locality') || component.types.includes('administrative_area_level_1')
       );
-
+  
       if (locality) {
-        setMyCity(locality.long_name);
+        setMyCity(details?.address_components?.long_name);
         console.log('Place Details:', locality.long_name);
       } else {
         console.log('Locality not found in address components.');
@@ -44,9 +50,14 @@ const Filter = ({ navigation }) => {
     }
   };
 
+
+  
+
   const handlePress = () => {
-    const url = `https://www.booking.com/searchresults.en-gb.html?ss=${myCity}&checkin=${CheckIn}&checkout=${CheckOut}`;
+
+    const url = `https://www.booking.com/searchresults.en-gb.html?ss=${city}&checkin=${CheckIn}&checkout=${CheckOut}`;
     Linking.openURL(url).catch(err => console.error('Failed to open URL: ', err));
+   
   };
 
   return (
@@ -92,11 +103,11 @@ const Filter = ({ navigation }) => {
               marginTop: hp('0%'),
             }}
           >
-            {/* Add your BookingInput components here */}
+            
           </View>
 
           <HideWithKeyboard style={{ marginTop: 'auto', backgroundColor: Color.white }}>
-            <Appbtn onPress={() => handlePress()} btnText={'Update Search'} />
+            <Appbtn disabled={city === '' ? true : false} onPress={() => handlePress()} btnText={'Update Search'} />
           </HideWithKeyboard>
         </View>
       </BookingBg2>
@@ -143,7 +154,7 @@ const Filter = ({ navigation }) => {
         mode={'date'}
         open={open2}
         date={date2}
-        minimumDate={new Date()}
+        minimumDate={date}
         onConfirm={date2 => {
           setOpen2(false);
           setDate2(date2);

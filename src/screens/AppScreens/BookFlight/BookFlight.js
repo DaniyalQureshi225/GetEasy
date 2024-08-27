@@ -1,68 +1,66 @@
-// import { View } from "react-native";
+// import { View, Text } from "react-native";
 // import React, { useState } from "react";
-// import Auto from "../../../Components/Auto";
 // import FlightBtn from "../../../Components/FlightInput";
-// import { takeOff } from "../../../assets/Images";
+// import { land } from "../../../assets/Images";
 // import { wp } from "../../../Color/Color";
 
+// const BookFlight = () => {
+//   const [myCity, setMyCity] = useState('');
 
-// const BookFlight = () =>{
+//   const handleCitySelect = (city) => {
+//     setMyCity(city);
+//   };
 
-//   const [field, setField] = useState('');
-//   const [from, setFrom] = useState('')
-//   const handlePlaceSelect = (city, details) => {
-//     // Set the city name to the field
-//     setField(city);
-//     // Pass the details to the parent component
-//     // if (onDetailsSelect) {
-//     //   onDetailsSelect(details);
-//     // }
-//     console.log('Selected City:', city);
-//     console.log('Selected Place Details:', details);
-//   }
+//   return (
+//     <View>
+//       <FlightBtn
+//         text={'To'}
+//         img={land}
+//         placeholder={'To City'}
+//         textWidth={wp('80%')}
+//         ww={wp('8%')}
+//         hh={wp('9%')}
+//         auto={true}
+//         onCitySelect={handleCitySelect}
+//       />
 
-//   return(
-//     // <Auto onPlaceSelect={handlePlaceSelect}/>
-//     <FlightBtn
-//               field={from}
-//               setField={setFrom}
-//               text={'From'}
-//               img={takeOff}
-//               placeholder={'From City'}
-//               textWidth={wp('80%')}
-//               auto={true}
-//               zIndex={100}
-//               position={'relative'}
-//             />
-
-//   )
+//     </View>
+//   );
 // };
 
-// export default BookFlight
+// export default BookFlight;
 
-
-
-
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Color, hp, wp } from '../../../Color/Color';
-import { calender, chair, land, plane, takeOff, user, userIcon } from '../../../assets/Images';
-import BookingBg from '../../../Components/BookingBg';
-import DatePicker from 'react-native-date-picker';
-import moment from 'moment';
-import Appbtn from '../../../Components/Appbtn';
-import ToggleBtn from '../../../Components/ToggleBtn';
+import {View, Text, Image, TouchableOpacity, ScrollView,Linking} from 'react-native';
+import {wp, hp, FontSize, Fonts, Color} from './../../../Color/Color';
+import React, {useState} from 'react';
+import {
+  calender,
+  chair,
+  drawerIcon,
+  land,
+  plane,
+  takeOff,
+  user,
+  userIcon,
+} from './../../../assets/Images';
 import FlightBtn from '../../../Components/FlightInput';
-import FlightBigField from '../../../Components/FligtBigField';
-import HideWithKeyboard from 'react-native-hide-with-keyboard';
+import Auto from '../../../Components/Auto';
+import ToggleBtn from '../../../Components/ToggleBtn';
+import {styles} from './style';
+import moment from 'moment';
 import FlightDateBtn from '../../../Components/FlightDateBtn';
 import FlightDropDown from '../../../Components/FlightDropDown';
-import { styles } from './style';
-import BottomTab from '../../../Components/BottomTab';
-import ScreenWraper from '../../../Components/ScreenWraper';
+import FlightBigField from '../../../Components/FligtBigField';
+import Appbtn from '../../../Components/Appbtn';
 import TwoWayFlightDropDown from '../../../Components/TowWayFlightDropDown';
+import HideWithKeyboard from 'react-native-hide-with-keyboard';
+import BottomTab from '../../../Components/BottomTab';
+import DatePicker from 'react-native-date-picker';
+import ScreenWraper from '../../../Components/ScreenWraper';
+const BookingBg = ({navigation}) => {
+  const [myCity, setMyCity] = useState('');
+  const [myCity2, setMyCity2] = useState('');
 
-const BookFlight = ({navigation}) => {
   const [date, setDate] = useState(new Date());
   const [date2, setDate2] = useState(new Date());
   const [open, setOpen] = useState(false);
@@ -76,20 +74,106 @@ const BookFlight = ({navigation}) => {
   const [adult, setAdult] = useState('');
   const [kids, setKids] = useState('');
   const [weight, setWeight] = useState('');
+  const [class1, setClass1] = useState('')
+
+  
+  const handleCitySelect = city => {
+    setMyCity(city);
+  };
+
+  const handleCitySelect2 = city => {
+    setMyCity2(city);
+  };
+
+  console.log( myCity, myCity2);
+
+
+  const handlePress1 = () => {
+    const url = `https://geteasytrip.com/flights/search?fromId=${myCity}&toId=${myCity2}&adults=${adult}&departDate=${CheckIn}&cabin=${class1}`;
+    Linking.openURL(url).catch(err => console.error('Failed to open URL: ', err));
+  };
+
 
   return (
-   
-     <ScreenWraper>
-       <BookingBg
-        userImg={user}
-        txt1={'Hello Mitul Patel'}
-        txt2={'Search Flights'}
-        mainImg={plane}
-        OpenDrawer={()=>navigation.toggleDrawer()}
-      >
+    <ScreenWraper>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: Color.primaryColor,
+        zIndex: -1,
+        position: 'relative',
+      }}>
+      <View
+        style={{
+          width: wp('90%'),
+          alignSelf: 'center',
+          marginTop: hp('1%'),
+          alignItems: 'center',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}>
+        <TouchableOpacity onPress={()=>navigation.toggleDrawer()}>
+          <Image
+            source={drawerIcon}
+            style={{width: wp('5%'), height: wp('5%')}}
+          />
+        </TouchableOpacity>
+
+        <Image
+          source={user}
+          resizeMode="contain"
+          style={{width: wp('10%'), height: wp('10%')}}
+        />
+      </View>
+
+      <Text
+        style={{
+          marginLeft: wp('5%'),
+          color: Color.white,
+          fontSize: FontSize.font14,
+          marginTop: hp('1%'),
+        }}>
+       Hello Mitul Patel
+      </Text>
+      <Text
+        style={{
+          marginLeft: wp('5%'),
+          fontSize: FontSize.font20,
+          fontFamily: Fonts.bold,
+          color: Color.white,
+        }}> 
+      Search Flights
+      </Text>
+      <Image
+        source={plane}
+        resizeMode="contain"
+        style={{
+          width: wp('130%'),
+          height: wp('50%'),
+          marginLeft:  wp('10%'),
+          transform:'5deg',
+          zIndex:20
+        }}
+      />
+
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+        style={{
+          backgroundColor: Color.white,
+          marginTop: hp('-6%'),
+          borderTopRightRadius: wp('5%'),
+          borderTopLeftRadius: wp('5%'),
+          position: 'relative',
+          zIndex: 3,
+        }}>
+        {/* <Auto/> */}
+
         <View style={styles.toggleContainer}>
           <ToggleBtn
-            backgroundColor={way === 'oneWay' ? Color.primaryColor : Color.white}
+            backgroundColor={
+              way === 'oneWay' ? Color.primaryColor : Color.white
+            }
             color={way === 'oneWay' ? Color.white : Color.primaryColor}
             onPress={() => setWay('oneWay')}
             name={'arrow-right-l'}
@@ -97,7 +181,9 @@ const BookFlight = ({navigation}) => {
           />
 
           <ToggleBtn
-            backgroundColor={way === 'twoWay' ? Color.primaryColor : Color.white}
+            backgroundColor={
+              way === 'twoWay' ? Color.primaryColor : Color.white
+            }
             color={way === 'twoWay' ? Color.white : Color.primaryColor}
             onPress={() => setWay('twoWay')}
             name={'arrow-swap'}
@@ -108,8 +194,8 @@ const BookFlight = ({navigation}) => {
         {way === 'oneWay' ? (
           <>
             <FlightBtn
-              field={from}
-              setField={setFrom}
+              // field={from}
+              // setField={setFrom}
               text={'From'}
               img={takeOff}
               placeholder={'From City'}
@@ -117,17 +203,19 @@ const BookFlight = ({navigation}) => {
               auto={true}
               zIndex={100}
               position={'relative'}
+              onCitySelect={handleCitySelect}
             />
 
             <FlightBtn
-              field={to}
-              setField={setTo}
               text={'To'}
               img={land}
               placeholder={'To City'}
               textWidth={wp('80%')}
               ww={wp('8%')}
               hh={wp('9%')}
+              auto={true}
+              onCitySelect={handleCitySelect2}
+              zIndex={50}
             />
 
             <View style={styles.row}>
@@ -173,28 +261,33 @@ const BookFlight = ({navigation}) => {
               setField3={setWeight}
               mb={hp('8%')}
             />
-
+            <Appbtn onPress={()=>handlePress1()} mt={hp('-3%')} btnText={'Search Now'} />
           </>
         ) : (
           <>
             <FlightBtn
-              field={from}
-              setField={setFrom}
+              // field={from}
+              // setField={setFrom}
               text={'From'}
               img={takeOff}
               placeholder={'From City'}
               textWidth={wp('80%')}
+              auto={true}
+              zIndex={100}
+              position={'relative'}
+              onCitySelect={handleCitySelect}
             />
 
             <FlightBtn
-              field={to}
-              setField={setTo}
               text={'To'}
               img={land}
               placeholder={'To City'}
               textWidth={wp('80%')}
               ww={wp('8%')}
               hh={wp('9%')}
+              auto={true}
+              onCitySelect={handleCitySelect}
+              zIndex={100}
             />
 
             <TwoWayFlightDropDown
@@ -205,9 +298,11 @@ const BookFlight = ({navigation}) => {
               ww={wp('6%')}
               hh={wp('7%')}
               text2={'Class'}
+              class1={class1}
+              setClass1={setClass1}
             />
 
-            <View style={styles.dateRow}>
+<View style={styles.dateRow}>
               <FlightDateBtn
                 onPress={() => setOpen(true)}
                 field={date}
@@ -230,7 +325,6 @@ const BookFlight = ({navigation}) => {
                 containerWidth={wp('43%')}
               />
             </View>
-
             <FlightBigField
               field={to}
               setField={setTo}
@@ -250,53 +344,58 @@ const BookFlight = ({navigation}) => {
               t3={'Kgs'}
               field3={weight}
               setField3={setWeight}
+              mb={hp('8%')}
             />
+            <Appbtn mt={hp('3%')} btnText={'Search Now'} />
           </>
         )}
-        <Appbtn mt={hp('3%')} btnText={'Search Now'} />
-      </BookingBg>
+      </ScrollView>
       <HideWithKeyboard style={styles.buttonContainer}>
        
-        <BottomTab
-        isFlight={true}
-        onPressHome={() => navigation.navigate('Filter')}
-        onPressCar={() => navigation.navigate('BookCar')}
-        onPressProfile={() => navigation.navigate('Profile')}
-      />
-      </HideWithKeyboard>
-      <DatePicker
-        modal
-        mode={'date'}
-        open={open}
-        date={date}
-        minimumDate={new Date()}
-        onConfirm={date => {
-          setOpen(false);
-          setDate(date);
-        }}
-        onCancel={() => {
-          setOpen(false);
-        }}
-      />
+       <BottomTab
+       isFlight={true}
+       onPressHome={() => navigation.navigate('Filter')}
+       onPressCar={() => navigation.navigate('BookCar')}
+       onPressProfile={() => navigation.navigate('Profile')}
+     />
+     </HideWithKeyboard>
+     <DatePicker
+       modal
+       mode={'date'}
+       open={open}
+       date={date}
+       minimumDate={new Date()}
+       onConfirm={date => {
+         setOpen(false);
+         setDate(date);
+       }}
+       onCancel={() => {
+         setOpen(false);
+       }}
+     />
 
-      <DatePicker
-        modal
-        mode={'date'}
-        open={open2}
-        date={date2}
-        minimumDate={new Date()}
-        onConfirm={date2 => {
-          setOpen2(false);
-          setDate2(date2);
-        }}
-        onCancel={() => {
-          setOpen(false);
-        }}
-      />
-     </ScreenWraper>
-   
+     <DatePicker
+       modal
+       mode={'date'}
+       open={open2}
+       date={date2}
+       minimumDate={new Date()}
+       onConfirm={date2 => {
+         setOpen2(false);
+         setDate2(date2);
+       }}
+       onCancel={() => {
+         setOpen(false);
+       }}
+     />
+    </View>
+    </ScreenWraper>
   );
 };
 
+export default BookingBg;
 
-export default BookFlight;
+
+
+
+

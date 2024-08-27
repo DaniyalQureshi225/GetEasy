@@ -147,9 +147,9 @@ const OTP = ({navigation, route}) => {
           }}
         />
          {show && !otp ? (
-            <Text style={{color:Color.red, fontSize:FontSize.font10, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('20%')}}>Please enter otp</Text>
+            <Text style={{color:Color.red, fontSize:FontSize.font14, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('20%')}}>Please enter otp</Text>
           ) : show && otp.length < 4 ? (
-            <Text style={{color:Color.red, fontSize:FontSize.font10, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('20%')}}>
+            <Text style={{color:Color.red, fontSize:FontSize.font14, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('20%')}}>
               Please enter a complete otp
             </Text>
           ) : null}
