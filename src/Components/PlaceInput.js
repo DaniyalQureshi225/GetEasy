@@ -28,10 +28,10 @@ const PlaceInput = ({ field, setField, inputWidht, type, name, containerWidth, p
         paddingHorizontal: wp('5%'),
         justifyContent: 'space-between',
         position: 'absolute',
-        top: hp('30%'),
+        top: hp('32%'),
       }}
     >
-      <Auto onPlaceSelect={handlePlaceSelect} />
+      <Auto onPlaceSelect={handlePlaceSelect} placeholder={placeholder}/>
       <Icon
         type={type}
         name={name}

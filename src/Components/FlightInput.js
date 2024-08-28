@@ -2,6 +2,7 @@ import { TextInput, View, Text, Image } from 'react-native';
 import { wp, hp, FontSize, Fonts, Color } from '../Color/Color';
 import Auto from './Auto';
 import React from 'react';
+import CityDropDown from './CityDropDown';
 
 const FlightBtn = ({
   field,
@@ -19,14 +20,13 @@ const FlightBtn = ({
   right,
   zIndex,
   onCitySelect,
-  onSelecetDetails 
+  flight
 }) => {
 
   const handlePlaceSelect = (city, details) => {
-    onSelecetDetails(details);
+    
     onCitySelect(city); 
     console.log('Selected City:', city);
-    console.log('Selected Place Details:', details);
   }
 
   return (
@@ -75,7 +75,13 @@ const FlightBtn = ({
           {text}
         </Text>
         {
-          auto ? <Auto onPlaceSelect={handlePlaceSelect}  /> :
+          auto ?
+          
+          <Auto onPlaceSelect={handlePlaceSelect} placeholder={placeholder}  /> :
+          flight ? 
+          <CityDropDown onSelect={handlePlaceSelect} placeHolder={placeholder}/>
+
+          :
             <TextInput
               placeholderTextColor={Color.gray}
               placeholder={placeholder}

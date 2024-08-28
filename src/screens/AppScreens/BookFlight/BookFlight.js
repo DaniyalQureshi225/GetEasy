@@ -52,6 +52,7 @@ const BookingBg = ({ navigation }) => {
     setMyCity(city);
   };
 
+
   const handleCitySelect2 = (city) => {
     setMyCity2(city);
   };
@@ -65,8 +66,8 @@ const BookingBg = ({ navigation }) => {
 
   const handlePress1 = () => {
     const url = way === 'oneWay'
-      ? `https://booking.kayak.com/flights/KHI-ISB/${CheckIn}/${adult}adults/children-${timeAdjustment}?sort=bestflight_a`
-      : `https://booking.kayak.com/flights/KHI-ISB/${CheckIn}/${CheckOut}/${adult}adults/children-${timeAdjustment}?sort=bestflight_a`;
+      ? `https://booking.kayak.com/flights/${myCity?.code}-${myCity2?.code}/${CheckIn}/${adult}adults/children-${timeAdjustment}?sort=bestflight_a`
+      : `https://booking.kayak.com/flights/${myCity?.code}-${myCity2?.code}/${CheckIn}/${CheckOut}/${adult}adults/children-${timeAdjustment}?sort=bestflight_a`;
   
     Linking.openURL(url).catch(err => console.error('Failed to open URL: ', err));
   };
@@ -130,7 +131,7 @@ const BookingBg = ({ navigation }) => {
                 img={takeOff}
                 placeholder={'From City'}
                 textWidth={wp('80%')}
-                auto={true}
+                flight={true}
                 zIndex={100}
                 position={'relative'}
                 onCitySelect={handleCitySelect}
@@ -143,7 +144,7 @@ const BookingBg = ({ navigation }) => {
                 textWidth={wp('80%')}
                 ww={wp('8%')}
                 hh={wp('9%')}
-                auto={true}
+                flight={true}
                 onCitySelect={handleCitySelect2}
                 zIndex={50}
               />
@@ -191,7 +192,7 @@ const BookingBg = ({ navigation }) => {
                 setField3={setWeight}
                 mb={hp('8%')}
               />
-              <Appbtn onPress={() => handlePress1()} mt={hp('-3%')} btnText={'Search Now'} />
+              <Appbtn disabled={myCity.length < 3 && myCity2.length < 3 ? true : false} onPress={() => handlePress1()} mt={hp('-3%')} btnText={'Search Now'} />
             </>
           ) : (
             <>
@@ -200,7 +201,7 @@ const BookingBg = ({ navigation }) => {
                 img={takeOff}
                 placeholder={'From City'}
                 textWidth={wp('80%')}
-                auto={true}
+                flight={true}
                 zIndex={100}
                 position={'relative'}
                 onCitySelect={handleCitySelect}
@@ -213,7 +214,7 @@ const BookingBg = ({ navigation }) => {
                 textWidth={wp('80%')}
                 ww={wp('8%')}
                 hh={wp('9%')}
-                auto={true}
+                flight={true}
                 onCitySelect={handleCitySelect}
                 zIndex={100}
               />
@@ -274,7 +275,7 @@ const BookingBg = ({ navigation }) => {
                 setField3={setWeight}
                 mb={hp('8%')}
               />
-              <Appbtn onPress={()=>handlePress1()} mt={hp('3%')} btnText={'Search Now'} />
+              <Appbtn disabled={myCity.length < 3 && myCity2.length < 3 ? true : false} onPress={()=>handlePress1()} mt={hp('3%')} btnText={'Search Now'} />
             </>
           )}
         </ScrollView>

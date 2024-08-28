@@ -28,13 +28,15 @@ import BottomTab from '../../../Components/BottomTab';
 import ScreenWraper from '../../../Components/ScreenWraper';
 import MyDrawer from '../../../route/AppDrawer';
 import useBookCar from './useBookCar';
+import CityDropdown from '../../../Components/CityDropDown';
+import CityDropDown from '../../../Components/CityDropDown';
 
 const BookCar = ({navigation}) => {
 
   const {data} = useBookCar();
 
 
-
+  const [selectedCity, setSelectedCity] = useState(null);
   const [date, setDate] = useState(new Date());
   const [date2, setDate2] = useState(new Date());
   const [open, setOpen] = useState(false);
@@ -103,6 +105,8 @@ const BookCar = ({navigation}) => {
    
   };
 
+
+
   return (
     <ScreenWraper>
       <BookingBg
@@ -113,7 +117,9 @@ const BookCar = ({navigation}) => {
         mainImg={cars}
         ml={wp('-5%')}
         tf={'0deg'}>
+                   
         <View style={{height: hp('2%')}} />
+       
         <FlightBtn
           // field={from}
           // setField={setFrom}
@@ -126,6 +132,7 @@ const BookCar = ({navigation}) => {
           position={'relative'}
           onCitySelect={handleCitySelect}
           onSelecetDetails={handleDetails}
+          
         />
 
         <FlightBtn
@@ -188,9 +195,10 @@ const BookCar = ({navigation}) => {
             containerWidth={wp('43%')}
           />
         </View>
+        <Appbtn disabled={myCity === '' || myCity2 === '' ? true : false} onPress={()=>handlePress()} btnText={'Search Now'} />
+
       </BookingBg>
       <HideWithKeyboard style={styles.buttonContainer}>
-        <Appbtn disabled={myCity === '' || myCity2 === '' ? true : false} onPress={()=>handlePress()} btnText={'Search Now'} />
         <BottomTab
           isCar={true}
           onPressHome={() => navigation.navigate('Filter')}

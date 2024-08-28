@@ -12,6 +12,7 @@ import { Color, wp, hp } from '../../../Color/Color';
 import { user, hotelpics } from '../../../assets/Images';
 import DatePickerBtn from '../../../Components/DatePickerBtn';
 import useFilter from './useFilter';
+import CityDropdown from '../../../Components/CityDropDown';
 
 const Filter = ({ navigation }) => {
 
@@ -94,6 +95,7 @@ const Filter = ({ navigation }) => {
             />
           </View>
 
+
           <View
             style={{
               width: wp('90%'),
@@ -106,7 +108,7 @@ const Filter = ({ navigation }) => {
             
           </View>
 
-          <HideWithKeyboard style={{ marginTop: 'auto', backgroundColor: Color.white }}>
+          <HideWithKeyboard style={{ marginTop: 'auto', backgroundColor: Color.white, marginBottom:hp('4%') }}>
             <Appbtn disabled={city === '' ? true : false} onPress={() => handlePress()} btnText={'Update Search'} />
           </HideWithKeyboard>
         </View>
@@ -119,7 +121,7 @@ const Filter = ({ navigation }) => {
         type={'AntDesign'}
         name={'search1'}
         containerWidth={wp('90%')}
-        placeholder={'Search City Here'}
+        placeholder={'Search'}
         onDetailsSelect={handlePlaceDetailsSelect} 
       />
 

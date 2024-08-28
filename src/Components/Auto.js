@@ -3,8 +3,9 @@ import React from "react";
 import { Color, wp } from "../Color/Color";
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { GoogleMapKeyPersonal } from './Data';
+import { placeholder } from "../assets/Images";
 
-const Auto = ({ onPlaceSelect }) => {
+const Auto = ({ onPlaceSelect, placeholder }) => {
 
     // Helper function to extract city from address components
     const getCityName = (addressComponents) => {
@@ -22,7 +23,7 @@ const Auto = ({ onPlaceSelect }) => {
         <GooglePlacesAutocomplete
             disableScroll={true}
             styles={styles.searchbar}
-            placeholder="Search"
+            placeholder={placeholder}
             textInputProps={{
                 placeholderTextColor: Color.gray,
                 returnKeyType: "search"
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
             width: wp('50%'),
         },
         textInput: {
-            marginLeft: 0,
+            marginLeft: wp('-2%'),
             marginRight: 0,
             height: wp('9.2%'),
             color: Color.black,
