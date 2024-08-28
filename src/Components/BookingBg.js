@@ -26,7 +26,7 @@ const BookingBg = ({children, userImg, txt1, txt2, mainImg, OpenDrawer, ml, tf})
           />
         </TouchableOpacity>
 
-        <Image source={userImg} resizeMode='contain' style={{width: wp('10%'), height: wp('10%')}} />
+        <Image source={userImg} resizeMode='cover' style={{width: wp('10%'), height: wp('10%'), borderRadius:wp('20%')}} />
       </View>
 
       <Text

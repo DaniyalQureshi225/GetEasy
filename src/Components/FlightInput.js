@@ -75,7 +75,7 @@ const FlightBtn = ({
           {text}
         </Text>
         {
-          auto ? <Auto onPlaceSelect={handlePlaceSelect} /> :
+          auto ? <Auto onPlaceSelect={handlePlaceSelect}  /> :
             <TextInput
               placeholderTextColor={Color.gray}
               placeholder={placeholder}

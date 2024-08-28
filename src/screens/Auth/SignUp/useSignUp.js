@@ -4,6 +4,9 @@ import {Color} from '../../../Color/Color';
 import {Api} from '../../../Api/Api';
 import axios from 'axios';
 import Snackbar from 'react-native-snackbar';
+import validator from 'validator';
+import { flight } from '../../../assets/Images';
+
 
 const useSignUp = ({navigation}) => {
   const [user, setUser] = useState('');
@@ -90,14 +93,15 @@ const useSignUp = ({navigation}) => {
     }
   };
 
+
   const Register = () => {
     if (imageUri === null) {
       setShow(true);
     }
-    if (!user || user.length < 3) {
+     if  (!user || user.trim().length < 3) {
       setShow(true);
     }
-    if (!emailId || (emailId && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailId))) {
+    if (!emailId || !validator.isEmail(emailId) ) {
       setShow(true);
     }
     if (!phone || (phone && phone.length < 16)) {
@@ -121,12 +125,13 @@ const useSignUp = ({navigation}) => {
     if(!check){
       setShow(true);
     }
-    else {
-      handleSubmit();
-     
-    }
-  };
 
+   
+    
+    else  user.trim().length >= 3 && phone.length === 14 ?  handleSubmit() : null;
+     
+    
+  };
   return {
     show,
     user,

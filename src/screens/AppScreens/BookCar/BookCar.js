@@ -7,6 +7,7 @@ import {
   chair,
   clock,
   land,
+  placeholder,
   plane,
   takeOff,
   user,
@@ -26,8 +27,14 @@ import {styles} from './style';
 import BottomTab from '../../../Components/BottomTab';
 import ScreenWraper from '../../../Components/ScreenWraper';
 import MyDrawer from '../../../route/AppDrawer';
+import useBookCar from './useBookCar';
 
 const BookCar = ({navigation}) => {
+
+  const {data} = useBookCar();
+
+
+
   const [date, setDate] = useState(new Date());
   const [date2, setDate2] = useState(new Date());
   const [open, setOpen] = useState(false);
@@ -100,8 +107,8 @@ const BookCar = ({navigation}) => {
     <ScreenWraper>
       <BookingBg
         OpenDrawer={() => navigation.toggleDrawer()}
-        userImg={user}
-        txt1={'Hello Mitul Patel'}
+        userImg={data ? {uri:data?.avatar} :  placeholder}
+        txt1={data ? `Hello ${data?.username}` : null}
         txt2={'Search Cars'}
         mainImg={cars}
         ml={wp('-5%')}
@@ -183,7 +190,7 @@ const BookCar = ({navigation}) => {
         </View>
       </BookingBg>
       <HideWithKeyboard style={styles.buttonContainer}>
-        <Appbtn onPress={()=>handlePress()} btnText={'Search Now'} />
+        <Appbtn disabled={myCity === '' || myCity2 === '' ? true : false} onPress={()=>handlePress()} btnText={'Search Now'} />
         <BottomTab
           isCar={true}
           onPressHome={() => navigation.navigate('Filter')}

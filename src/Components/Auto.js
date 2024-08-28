@@ -67,7 +67,8 @@ const styles = StyleSheet.create({
             marginTop: wp('0.8%'),
             color: Color.black,
             alignItems: 'center',
-            zIndex: 9999, 
+            zIndex: 9999,
+            marginTop:-1
         },
         description: {
             color: Color.black,

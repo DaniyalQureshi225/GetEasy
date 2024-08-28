@@ -22,7 +22,8 @@ const ProfileThemeBg = ({
   children,
   onPressBack,
   closeBtn,
-  text
+  text,
+  img
 }) => {
   return (
     <View style={styles.container}>
@@ -51,7 +52,7 @@ const ProfileThemeBg = ({
             }}>{text}</Text>
         </View>
         <View style={{flex:1, alignItems:'flex-end'}}>
-          <Image source={user} resizeMode='contain' style={{width: wp('8%'), height: wp('8%')}} />
+          <Image source={img} resizeMode='cover' style={{width: wp('8%'), height: wp('8%'), borderRadius:wp('20%')}} />
         </View>
       </View>
 

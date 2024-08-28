@@ -13,9 +13,15 @@ import MyDrawer from './AppDrawer';
 import MyDrawerCar from './AppDrawerCar';
 import TermsAndCondition from '../screens/AppScreens/TermsAndServices/TermsAndServices';
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator();   
 
 function MyDrawerHotel({navigation}) {
+
+
+
+
+
+
   return (
     <Drawer.Navigator
       initialRouteName="Filter"

@@ -108,7 +108,7 @@ const SignUp = ({navigation}) => {
 
         <InputField
           img={phoneIcon}
-          placeholderText={'(999) 999-9999'}
+          placeholderText={'(999) 999-9999'} 
           field={phone}
           setField={setPhone}
           keyboardType={'numeric'}

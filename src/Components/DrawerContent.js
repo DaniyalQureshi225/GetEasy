@@ -34,7 +34,10 @@ const DrawerContent = props => {
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
       <View style={styles.padding}>
-        <TouchableOpacity onPress={()=>navigation.navigate('SignIn')} style={styles.button}>
+        <TouchableOpacity onPress={()=>navigation.reset({
+          index: 0,
+          routes: [{ name: 'SignIn' }],
+        })} style={styles.button}>
           <Icon
             size={wp('5%')}
             type="AntDesign"

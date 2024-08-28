@@ -7,14 +7,18 @@ import { styles } from "./styles";
 
 import Appbtn from '../../../Components/Appbtn';
 import { Lorem, LoremBig } from '../../../Components/Data';
+import useFilter from '../Filter/useFilter';
+import { placeholder } from '../../../assets/Images';
 
 const Faqs = ({navigation}) =>{
-   
+  const {data} = useFilter();
+
     return(
        <ProfileThemeBg
        backButton={true}
        text={'FAQs'}
        onPressBack={()=>navigation.goBack()}
+       img={data ? {uri:data?.avatar} : placeholder}
        >
         
       <View style={styles.container}>

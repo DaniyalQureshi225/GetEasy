@@ -17,7 +17,6 @@ const Filter = ({ navigation }) => {
 
   const {data} = useFilter();
 
-  console.log(data);
 
 
   const [city, setCity] = useState('');
@@ -63,12 +62,13 @@ const Filter = ({ navigation }) => {
   return (
     <ScreenWraper>
       <BookingBg2
-        userImg={user}
-        txt1={'Hello Mitul Patel'}
+        userImg={{uri:data?.avatar}}
+        txt1={data ? `Hello ${data?.username}` : null}
         txt2={'Search Hotels'}
         OpenDrawer={() => navigation.toggleDrawer()}
         mainImg={hotelpics}
         ml={wp('-20%')}
+        data={data}
       >
         <View style={{ height: hp('50%'), marginTop: hp('10%') }}>
           <View

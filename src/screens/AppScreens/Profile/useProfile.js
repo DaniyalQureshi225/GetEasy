@@ -123,7 +123,11 @@ const useProfile = ({ navigation }) => {
   
       // Check if error.response exists
       const errorMessage = error?.response?.data?.error || 'An error occurred';
-      showSnackbar(errorMessage);
+
+      setTimeout(()=>{
+        showSnackbar(errorMessage);
+      },1000)
+      
   
       console.error('Error Response:', error);
     }
@@ -144,10 +148,9 @@ const useProfile = ({ navigation }) => {
       setShow(true);
     }
     else {
-      handleSubmit();
+      user.trim().length >= 3 && phone.length === 16 ?   handleSubmit() : null;
     }
   };
-
   useEffect(() => {
     const getMyProfile = async () => {
       try {

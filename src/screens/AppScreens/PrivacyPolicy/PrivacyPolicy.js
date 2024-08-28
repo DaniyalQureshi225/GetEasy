@@ -7,14 +7,17 @@ import { styles } from "./styles";
 
 import Appbtn from '../../../Components/Appbtn';
 import { Lorem, LoremBig } from '../../../Components/Data';
+import { placeholder } from '../../../assets/Images';
+import useFilter from '../Filter/useFilter';
 
 const PrivacyPolicy = ({navigation}) =>{
-   
+    const {data} = useFilter();
     return(
        <ProfileThemeBg
        backButton={true}
        text={'Privacy Policy'}
        onPressBack={()=>navigation.goBack()}
+       img={data ? {uri:data?.avatar} : placeholder}
        >
         
       <View style={styles.container}>

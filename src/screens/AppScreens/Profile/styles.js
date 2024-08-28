@@ -38,8 +38,8 @@ export const styles = StyleSheet.create({
       height: hp('25%'),
     },
 
-    validation:{color:Color.red, fontSize:FontSize.font10, fontFamily:Fonts.light},
-    validation2:{color:Color.red, fontSize:FontSize.font10, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('10%')}
+    validation:{color:Color.red, fontSize:FontSize.font14, fontFamily:Fonts.light},
+    validation2:{color:Color.red, fontSize:FontSize.font14, fontFamily:Fonts.light, alignSelf:'flex-start', marginLeft:wp('10%')}
    
    
   });
