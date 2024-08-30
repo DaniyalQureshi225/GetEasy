@@ -1,51 +1,50 @@
 import React from 'react';
-import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
-import {
-  DrawerItemList,
-  DrawerContentScrollView,
-} from '@react-navigation/drawer';
-import {Color, Fonts, wp, hp, FontSize} from './../Color/Color';
+import { View, StyleSheet, Text, TouchableOpacity, Image, Alert } from 'react-native';
+import { DrawerItemList, DrawerContentScrollView } from '@react-navigation/drawer';
+import { Color, Fonts, wp, hp, FontSize } from './../Color/Color';
 import Icon from './Icon';
-import {mobile, user, x} from '../assets/Images';
+import { mobile, user, x } from '../assets/Images';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const DrawerContent = props => {
-  const {navigation} = props;
+const DrawerContent = (props) => {
+  const { navigation } = props;
+
+  const removeItem = async () => {
+    try {
+      await AsyncStorage.removeItem('Token');
+      console.log('Item with key "Token" removed successfully.');
+     
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'SignIn' }],
+      });
+    } catch (error) {
+      console.error('Error removing item from AsyncStorage:', error);
+      Alert.alert('Error', 'An error occurred while logging out.');
+    }
+  };
 
   return (
-    <View style={styles.flex}>
-      
+    <View style={styles.container}>
       <DrawerContentScrollView {...props}>
-       
-        <View style={styles.container}>
-          <View
-            style={{
-              flexDirection: 'row',
-              width: wp('90%'),
-              alignSelf: 'center',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-              <Image source={x} style={{width: wp('8%'), height: wp('8%')}} />
-            </TouchableOpacity>
-            <Image source={user} resizeMode='contain' style={{width: wp('9%'), height: wp('9%')}} />
-          </View>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+            <Image source={x} style={styles.icon} />
+          </TouchableOpacity>
+          <Image source={user} resizeMode='contain' style={styles.userImage} />
         </View>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
-      <View style={styles.padding}>
-        <TouchableOpacity onPress={()=>navigation.reset({
-          index: 0,
-          routes: [{ name: 'SignIn' }],
-        })} style={styles.button}>
+      <View style={styles.footer}>
+        <TouchableOpacity onPress={removeItem} style={styles.button}>
           <Icon
             size={wp('5%')}
             type="AntDesign"
             color={Color.white}
             name="questioncircleo"
-            style={{marginLeft:wp('5%')}}
+            style={styles.iconSpacing}
           />
-          <Text style={styles.text}>{'Logout'}</Text>
+          <Text style={styles.buttonText}>Logout</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -53,40 +52,27 @@ const DrawerContent = props => {
 };
 
 const styles = StyleSheet.create({
-  flex: {
-    flex: 1,
-    
-  },
   container: {
-    width: '92%',
-    paddingLeft: '4%',
-    alignItems: 'center',
+    flex: 1,
+  },
+  header: {
     flexDirection: 'row',
+    width: wp('90%'),
+    alignSelf: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: hp('5%'),
     marginTop: hp('2%'),
   },
-  title: {
-    color: Color.black,
-    fontSize: FontSize.font16,
-    fontFamily: Fonts.semiBold,
+  icon: {
+    width: wp('8%'),
+    height: wp('8%'),
   },
-  caption: {
-    textAlign: 'left',
-    color: Color.gray,
-    fontFamily: Fonts.medium,
-    fontSize: FontSize.font14,
+  userImage: {
+    width: wp('9%'),
+    height: wp('9%'),
   },
-  image: {
-    width: wp('13%'),
-    height: wp('13%'),
-    borderRadius: 180,
-  },
-  textContainer: {
-    width: wp('45.5%'),
-    marginLeft: wp('2%'),
-    flexDirection: 'column',
-  },
-  padding: {
+  footer: {
     paddingBottom: hp('5%'),
   },
   button: {
@@ -94,7 +80,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
-  text: {
+  iconSpacing: {
+    marginLeft: wp('5%'),
+  },
+  buttonText: {
     color: Color.white,
     fontFamily: Fonts.medium,
     fontSize: FontSize.font16,

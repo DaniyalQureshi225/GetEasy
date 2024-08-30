@@ -7,6 +7,7 @@ import SplashScreen from 'react-native-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NextStay from './src/screens/NextStay/NextStay';
 import LoaderScreen from './src/Components/LoaderScreen';
+import { AppProvider } from './src/Components/AppContext';
 
 const App = () => {
   const [intro, setIntro] = useState('false');
@@ -35,7 +36,9 @@ const App = () => {
   console.log('Token:', myToken);
 
   return (
+    <AppProvider>
     <View style={{ flex: 1 }}>
+     
       <StatusBar barStyle="light-content" backgroundColor={Color.primaryColor} />
       {active ? (
         intro === 'false' ? (
@@ -48,7 +51,10 @@ const App = () => {
       ) : (
         <LoaderScreen />
       )}
+    
+    
     </View>
+    </AppProvider>
   );
 };
 

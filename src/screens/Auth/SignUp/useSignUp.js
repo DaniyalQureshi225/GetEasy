@@ -82,7 +82,7 @@ const useSignUp = ({navigation}) => {
       );
       console.log('Response:', response.data.message);
       setModalVisible(false)
-      navigation.navigate('SignIn')
+      navigation.navigate('Thanks')
     } catch ({error, response}) {
       setModalVisible(false)
       console.error('Error Response:', error, );

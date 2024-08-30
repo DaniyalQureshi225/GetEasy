@@ -5,6 +5,7 @@ import { Color, Fonts, FontSize, hp, wp } from '../../Color/Color';
 import Welcome from '../../Components/Welcome';
 import { heading1, heading2, heading3, tex1, tex2, tex3 } from '../../Components/Data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAppContext } from '../../Components/AppContext';
 
 const NextStay = ({ onIntroComplete }) => {
   const [screen, setScreen] = useState('first');

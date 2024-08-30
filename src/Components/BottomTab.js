@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { wp, Color, hp, FontSize, Fonts } from "../Color/Color";
 import React from "react";
-import { car22, flight, home, pro } from "../assets/Images";
+import { car22, flight, home, hotel, pro } from "../assets/Images";
 
 const BottomTab = ({isHome, onPressHome, onPressFlight, isFlight, onPressCar, isCar, isProfile, onPressProfile}) =>{
     return(
@@ -27,11 +27,11 @@ const BottomTab = ({isHome, onPressHome, onPressFlight, isFlight, onPressCar, is
             borderRadius:wp('10%')
           }}>
           <Image
-            source={home}
+            source={hotel}
             resizeMode="contain"
             style={{width: wp('5%'), height: wp('5%'), tintColor:isHome? Color.white : Color.bottomTab}}
           />
-          <Text style={{color:isHome? Color.white : Color.bottomTab}}>Hotel</Text>
+          <Text style={{color:isHome? Color.white : Color.bottomTab, fontSize: isHome ? FontSize.font11 : null}}>Hotel</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -49,7 +49,7 @@ const BottomTab = ({isHome, onPressHome, onPressFlight, isFlight, onPressCar, is
             resizeMode="contain"
             style={{width: wp('5%'), height: wp('5%'), tintColor:isFlight ? Color.white : Color.bottomTab}}
           />
-          <Text style={{color:isFlight ? Color.white : Color.bottomTab}}>Flights</Text>
+          <Text style={{color:isFlight ? Color.white : Color.bottomTab, fontSize:isFlight ? FontSize.font11 : null}}>Flights</Text>
         </TouchableOpacity>
 
 
@@ -87,7 +87,7 @@ const BottomTab = ({isHome, onPressHome, onPressFlight, isFlight, onPressCar, is
             resizeMode="contain"
             style={{width: wp('5%'), height: wp('5%'), tintColor: isProfile ? Color.white : Color.bottomTab}}
           />
-          <Text style={{color: isProfile ? Color.white : Color.bottomTab}}>Profile</Text>
+          <Text style={{color: isProfile ? Color.white : Color.bottomTab, fontSize:isProfile ? FontSize.font11 : null}}>Profile</Text>
         </TouchableOpacity>
       </View>
     )

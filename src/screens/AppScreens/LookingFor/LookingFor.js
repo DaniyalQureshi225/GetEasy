@@ -1,5 +1,5 @@
 import {View, Text} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AppThemeBlue from '../../../Components/AppThemeBlue';
 import {Color, Fonts, FontSize, hp, wp} from '../../../Color/Color';
 import {LookingForTex} from '../../../Components/Data';
@@ -9,7 +9,14 @@ import {key, placeholder} from '../../../assets/Images';
 import TransparentBtn from '../../../Components/TransparentBtn';
 import Icon from '../../../Components/Icon';
 import FatBtn from '../../../Components/fatBtn';
+import { useAppContext } from '../../../Components/AppContext';
 const LookingFor = ({navigation}) => {
+  const { dataa, errorr, myToken, triggerApiCall } = useAppContext();
+
+  useEffect(()=>{
+    triggerApiCall()
+  },[])
+
   return (
     <AppThemeBlue
       closeBtn={false}

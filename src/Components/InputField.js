@@ -18,7 +18,8 @@ const InputField = ({
   label,
   labelTex,
   blueTheme,
-  phone
+  phone,
+  editable
 }) => {
   return (
     <>
@@ -60,6 +61,7 @@ const InputField = ({
           placeholder={placeholderText}
           placeholderTextColor={blueTheme ? Color.white : Color.border}
           secureTextEntry={secure}
+          editable={editable}
           style={{
             marginLeft: wp('2%'),
             fontSize: FontSize.font14,

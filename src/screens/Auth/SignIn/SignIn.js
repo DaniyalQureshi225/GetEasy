@@ -66,10 +66,6 @@ const SignIn = ({ navigation }) => {
         />
         {show && !password ? (
           <Text style={styles.validation2}>Please enter your password</Text>
-        ) : show && password && password.length < 8 ? (
-          <Text style={styles.validation2}>Password must be at least 8 characters long</Text>
-        ) : show && password && !/[A-Z]/.test(password) ? (
-          <Text style={styles.validation2}>Password must include at least one uppercase letter</Text>
         ) : null}
         <TransparentBtn onPress={() => handleSubmit()} mb={hp('0%')} mt={hp('5%')} text={'Login'} />
         <Text style={{ marginTop: hp('0%'), color: Color.white, fontSize: FontSize.font14 }}>

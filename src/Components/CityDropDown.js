@@ -43,7 +43,7 @@ const CityDropDown = ({ onSelect, placeHolder }) => { // Added onSelect prop
 
   const handleSelect = (item) => {
     setShow(false); 
-    setNumber(item?.city.split('?')?.[0]);
+    setNumber(item?.city);
    
     if (onSelect) {
       onSelect(item); 
@@ -75,7 +75,7 @@ const CityDropDown = ({ onSelect, placeHolder }) => { // Added onSelect prop
               onPress={() => handleSelect(item)}
               key={index}
               style={styles.dropdownItem}>
-              <Text style={styles.dropdownText}>{item?.city.split('?')?.[0]}</Text>
+              <Text style={styles.dropdownText}>{item?.city}</Text>
             </TouchableOpacity>
           ))}
         </View>

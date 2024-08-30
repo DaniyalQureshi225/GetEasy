@@ -9,16 +9,17 @@ import Appbtn from '../../../Components/Appbtn';
 import { Lorem, LoremBig } from '../../../Components/Data';
 import useFilter from '../Filter/useFilter';
 import { placeholder } from '../../../assets/Images';
+import { useAppContext } from '../../../Components/AppContext';
 
 const Faqs = ({navigation}) =>{
-  const {data} = useFilter();
+  const { dataa, errorr, myToken } = useAppContext();
 
     return(
        <ProfileThemeBg
        backButton={true}
        text={'FAQs'}
        onPressBack={()=>navigation.goBack()}
-       img={data ? {uri:data?.avatar} : placeholder}
+       img={dataa ? {uri:dataa?.avatar} : placeholder}
        >
         
       <View style={styles.container}>

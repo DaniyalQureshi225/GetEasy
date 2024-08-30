@@ -39,17 +39,21 @@ function AppRouteHome() {
           
         
           <Stack.Screen name="TermsAndCondition2" component={TermsAndCondition2} />
-         
-          
-         
-          
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="Thanks" component={Thanks} />
+
+          <Stack.Screen name="OTP" component={OTP} />
+          <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
           
           <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="ResetPassword" component={ResetPassword} />
+          <Stack.Screen name="PasswordReset" component={PassworReset} />
           
           <Stack.Screen name="Filter" component={MyDrawerHotel} />
           {/* <Stack.Screen name="BookFlight" component={BookFlight} /> */}
           <Stack.Screen name="BookCar" component={MyDrawerCar} /> 
           <Stack.Screen name="MyDrawer" component={MyDrawer} />
+          <Stack.Screen name="SignIn" component={SignIn} />
         </Stack.Navigator>
       </NavigationContainer>
     );

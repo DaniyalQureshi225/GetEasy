@@ -5,6 +5,7 @@ import { Api } from '../../../Api/Api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Snackbar from 'react-native-snackbar'; // Make sure to import Snackbar
+import { useAppContext } from '../../../Components/AppContext';
 
 const useProfile = ({ navigation }) => {
   const [user, setUser] = useState('');
@@ -12,15 +13,18 @@ const useProfile = ({ navigation }) => {
   const [phone, setPhone] = useState('');
   const [imageUri, setImageUri] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible2, setModalVisible2] = useState(false);
   const [show, setShow] = useState(false);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [myToken, setMyToken] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  // console.log(data)
+  const { dataa, errorr, myToken, triggerApiCall2 } = useAppContext();
+
+
+
 
   const showSnackbar = message => {
     Snackbar.show({
@@ -57,36 +61,14 @@ const useProfile = ({ navigation }) => {
       });
   };
 
-  const getData = async () => {
-    try {
-      const token = await AsyncStorage.getItem('Token');
-      setMyToken(token);
-    } catch (e) {
-      console.error('Failed to load data from AsyncStorage:', e);
-    }
-  };
 
 
-  const fetchData = async (token) => {
-    try {
-      const response = await axios.get(Api, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setData(response.data);
-    } catch (err) {
-      setError(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+
 
   const handleSubmit = async () => {
     const formData = new FormData();
     setModalVisible(true);
   
-    // Append the avatar image to the form data if it exists
     if (imageUri) {
       formData.append('avatar', {
         uri: imageUri,
@@ -95,15 +77,13 @@ const useProfile = ({ navigation }) => {
       });
     }
   
-    // Append other form data fields
     formData.append('username', user);
     formData.append('email', emailId);
     formData.append('phone', phone);
   
     try {
-      // Make the POST request to update profile
       const response = await axios.post(
-        `${Api}/update`,  // Ensure `${Api}` is the base URL and `/update` is the correct endpoint
+        `${Api}/update`,  
         formData,
         {
           headers: {
@@ -113,10 +93,14 @@ const useProfile = ({ navigation }) => {
         },
       );
   
-      // Handle the response
       console.log('Response:', response?.data?.message);
       setModalVisible(false);
-      navigation.navigate('LookingFor');
+      setModalVisible2(true);
+      triggerApiCall2()
+      setTimeout(()=>{
+        setModalVisible2(false);
+      }, 4000)
+     
     } catch (error) {
       
       setModalVisible(false);
@@ -133,6 +117,7 @@ const useProfile = ({ navigation }) => {
     }
   };
   
+  console.log(phone.length)
 
   const Register = () => {
     if (imageUri === null) {
@@ -144,46 +129,29 @@ const useProfile = ({ navigation }) => {
     if (!emailId || (emailId && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailId))) {
       setShow(true);
     }
-    if (!phone || phone && phone.length < 16) {
+    if (!phone || phone && phone.length < 14) {
       setShow(true);
     }
     else {
-      user.trim().length >= 3 && phone.length === 16 ?   handleSubmit() : null;
+      user.trim().length >= 3 && phone.length === 14 ?   handleSubmit() : null;
     }
   };
-  useEffect(() => {
-    const getMyProfile = async () => {
-      try {
-        await getData();
-      } catch (error) {
-        console.error('Error getting token:', error);
-      }
-    };
-
-    getMyProfile();
-  }, []);
 
   useEffect(() => {
-    if (myToken) {
-      fetchData(myToken);
-    }
-  }, [myToken]);
-
-  useEffect(() => {
-    if (data) {
-      setUser(data.username || '');
-      setEmailId(data.email || '');
-      setPhone(data.phone || '');
-      setImageUri(data?.avatar || null) 
-      if (data.imageUri) {
-        setImageUri(data.imageUri);
+    if (dataa) {
+      setUser(dataa.username || '');
+      setEmailId(dataa.email || '');
+      setPhone(dataa.phone || '');
+      setImageUri(dataa?.avatar || null) 
+      if (dataa.imageUri) {
+        setImageUri(dataa.imageUri);
       }
     }
   }, [data]);
 
   return {
     user,
-    data,
+    dataa,
     phone,
     show,
     emailId,
@@ -200,6 +168,7 @@ const useProfile = ({ navigation }) => {
     setPassword,
     confirmPassword,
     setConfirmPassword,
+    modalVisible2
   };
 };
 

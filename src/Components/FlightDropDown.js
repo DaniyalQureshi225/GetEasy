@@ -30,7 +30,7 @@ const FlightDropDown = ({
         backgroundColor: Color.textBox,
         width: containerWidth || wp('90%'),
         alignSelf: 'center',
-        marginTop: hp('3%'),
+        marginTop: hp('2.2%'),
         height: hp('8%'),
         alignItems: 'center',
         paddingHorizontal: wp('5%'),

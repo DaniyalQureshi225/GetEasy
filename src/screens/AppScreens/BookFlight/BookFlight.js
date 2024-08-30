@@ -25,12 +25,15 @@ import ScreenWraper from '../../../Components/ScreenWraper';
 import useBookFlight from './useBookFlight';
 import moment from 'moment';
 import { styles } from './style';
+import { useAppContext } from '../../../Components/AppContext';
 
 const BookingBg = ({ navigation }) => {
-  const { data } = useBookFlight();
+  const { dataa, errorr, myToken } = useAppContext();
 
-  const [myCity, setMyCity] = useState('');
-  const [myCity2, setMyCity2] = useState('');
+  const [myCity, setMyCity] = useState(null);
+  const [myCity2, setMyCity2] = useState(null);
+  const [myCity3, setMyCity3] = useState('');
+  const [myCity4, setMyCity4] = useState('');
   const [date, setDate] = useState(new Date());
   const [date2, setDate2] = useState(new Date());
   const [open, setOpen] = useState(false);
@@ -38,7 +41,7 @@ const BookingBg = ({ navigation }) => {
   const [way, setWay] = useState('oneWay');
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
-  const [adult, setAdult] = useState('');
+  const [adult, setAdult] = useState('1');
   const [kids, setKids] = useState('');
   const [weight, setWeight] = useState('');
   const [class1, setClass1] = useState('');
@@ -53,8 +56,17 @@ const BookingBg = ({ navigation }) => {
   };
 
 
+
   const handleCitySelect2 = (city) => {
     setMyCity2(city);
+  };
+
+  const handleCitySelect3 = (city) => {
+    setMyCity3(city);
+  };
+
+  const handleCitySelect4 = (city) => {
+    setMyCity4(city);
   };
 
   const handleKidsChange = (newKids) => {
@@ -64,13 +76,20 @@ const BookingBg = ({ navigation }) => {
   };
 
 
-  const handlePress1 = () => {
-    const url = way === 'oneWay'
-      ? `https://booking.kayak.com/flights/${myCity?.code}-${myCity2?.code}/${CheckIn}/${adult}adults/children-${timeAdjustment}?sort=bestflight_a`
-      : `https://booking.kayak.com/flights/${myCity?.code}-${myCity2?.code}/${CheckIn}/${CheckOut}/${adult}adults/children-${timeAdjustment}?sort=bestflight_a`;
-  
+  const handlePress2 = () => {
+    const url = kids === '' && adult === '1' ? `https://booking.kayak.com/flights/${myCity3?.code}-${myCity4?.code}/${CheckIn}/${CheckOut}` :
+          kids === '' && adult > 1 ? `https://booking.kayak.com/flights/${myCity3?.code}-${myCity4?.code}/${CheckIn}/${CheckOut}/${adult}adults?sort=bestflight_a` : 
+          `https://booking.kayak.com/flights/${myCity3?.code}-${myCity4?.code}/${CheckIn}/${CheckOut}/${adult}adults/children-${timeAdjustment}?sort=bestflight_a`;
     Linking.openURL(url).catch(err => console.error('Failed to open URL: ', err));
   };
+  
+  const handlePress1 = () => {
+    const url = kids === '' 
+      ? `https://booking.kayak.com/flights/${myCity?.code}-${myCity2?.code}/${CheckIn}/${adult}adults?sort=bestflight_a`
+      : `https://booking.kayak.com/flights/${myCity?.code}-${myCity2?.code}/${CheckIn}/${adult}adults/children-${timeAdjustment}?sort=bestflight_a`;
+    Linking.openURL(url).catch(err => console.error('Failed to open URL: ', err));
+  };
+  
   
 
 
@@ -81,16 +100,18 @@ const BookingBg = ({ navigation }) => {
           <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
             <Image source={drawerIcon} style={{ width: wp('5%'), height: wp('5%') }} />
           </TouchableOpacity>
-
+          <TouchableOpacity onPress={()=>navigation.navigate('Profile')}>
           <Image
-            source={data ? { uri: data?.avatar } : placeholder}
+            source={dataa ? { uri: dataa?.avatar } : placeholder}
             resizeMode='cover'
             style={{ width: wp('10%'), height: wp('10%'), borderRadius: wp('20%') }}
           />
+          </TouchableOpacity>
+         
         </View>
 
         <Text style={{ marginLeft: wp('5%'), color: Color.white, fontSize: FontSize.font14, marginTop: hp('1%') }}>
-          {data ? `Hello ${data?.username}` : null}
+          {dataa ? `Hello ${dataa?.username}` : null}
         </Text>
         <Text style={{ marginLeft: wp('5%'), fontSize: FontSize.font20, fontFamily: Fonts.bold, color: Color.white }}>
           Search Flights
@@ -110,7 +131,7 @@ const BookingBg = ({ navigation }) => {
             <ToggleBtn
               backgroundColor={way === 'oneWay' ? Color.primaryColor : Color.white}
               color={way === 'oneWay' ? Color.white : Color.primaryColor}
-              onPress={() => setWay('oneWay')}
+              onPress={() => [setWay('oneWay'), setMyCity(myCity3), setMyCity2(myCity4)]}
               name={'arrow-right-l'}
               text={'One way'}
             />
@@ -118,7 +139,7 @@ const BookingBg = ({ navigation }) => {
             <ToggleBtn
               backgroundColor={way === 'twoWay' ? Color.primaryColor : Color.white}
               color={way === 'twoWay' ? Color.white : Color.primaryColor}
-              onPress={() => setWay('twoWay')}
+              onPress={() => [setWay('twoWay'), setMyCity3(myCity), setMyCity4(myCity2)]}
               name={'arrow-swap'}
               text={'Round Trip'}
             />
@@ -192,7 +213,7 @@ const BookingBg = ({ navigation }) => {
                 setField3={setWeight}
                 mb={hp('8%')}
               />
-              <Appbtn disabled={myCity.length < 3 && myCity2.length < 3 ? true : false} onPress={() => handlePress1()} mt={hp('-3%')} btnText={'Search Now'} />
+              <Appbtn disabled={!myCity || !myCity2 || CheckIn === CheckCurrent ? true : false} onPress={() => handlePress1()} mt={hp('-3%')} btnText={'Search Now'} />
             </>
           ) : (
             <>
@@ -204,7 +225,7 @@ const BookingBg = ({ navigation }) => {
                 flight={true}
                 zIndex={100}
                 position={'relative'}
-                onCitySelect={handleCitySelect}
+                onCitySelect={handleCitySelect3}
               />
 
               <FlightBtn
@@ -215,8 +236,8 @@ const BookingBg = ({ navigation }) => {
                 ww={wp('8%')}
                 hh={wp('9%')}
                 flight={true}
-                onCitySelect={handleCitySelect}
-                zIndex={100}
+                onCitySelect={handleCitySelect4}
+                zIndex={50}
               />
 
               <TwoWayFlightDropDown
@@ -275,7 +296,7 @@ const BookingBg = ({ navigation }) => {
                 setField3={setWeight}
                 mb={hp('8%')}
               />
-              <Appbtn disabled={myCity.length < 3 && myCity2.length < 3 ? true : false} onPress={()=>handlePress1()} mt={hp('3%')} btnText={'Search Now'} />
+              <Appbtn disabled={myCity?.length < 3 && myCity2.length < 3 ? true : false} onPress={()=>handlePress2()} mt={hp('3%')} btnText={'Search Now'} />
             </>
           )}
         </ScrollView>

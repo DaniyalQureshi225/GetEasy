@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Linking} from 'react-native';
 import {Color, hp, wp} from '../../../Color/Color';
 import {
   calender,
+  car,
+  car1,
   cars,
   chair,
   clock,
@@ -30,11 +32,14 @@ import MyDrawer from '../../../route/AppDrawer';
 import useBookCar from './useBookCar';
 import CityDropdown from '../../../Components/CityDropDown';
 import CityDropDown from '../../../Components/CityDropDown';
+import { useAppContext } from '../../../Components/AppContext';
 
 const BookCar = ({navigation}) => {
 
-  const {data} = useBookCar();
+  const { dataa, errorr, myToken, triggerApiCall } = useAppContext();
 
+
+  
 
   const [selectedCity, setSelectedCity] = useState(null);
   const [date, setDate] = useState(new Date());
@@ -111,11 +116,12 @@ const BookCar = ({navigation}) => {
     <ScreenWraper>
       <BookingBg
         OpenDrawer={() => navigation.toggleDrawer()}
-        userImg={data ? {uri:data?.avatar} :  placeholder}
-        txt1={data ? `Hello ${data?.username}` : null}
+        userImg={dataa ? {uri:dataa?.avatar} :  placeholder}
+        txt1={dataa ? `Hello ${dataa?.username}` : null}
         txt2={'Search Cars'}
         mainImg={cars}
         ml={wp('-5%')}
+        onPressProfile={()=>navigation.navigate('Profile')}
         tf={'0deg'}>
                    
         <View style={{height: hp('2%')}} />
@@ -124,7 +130,7 @@ const BookCar = ({navigation}) => {
           // field={from}
           // setField={setFrom}
           text={'From'}
-          img={takeOff}
+          img={car1}
           placeholder={'From City'}
           textWidth={wp('80%')}
           auto={true}
@@ -137,7 +143,7 @@ const BookCar = ({navigation}) => {
 
         <FlightBtn
           text={'To'}
-          img={land}
+          img={car}
           placeholder={'To City'}
           textWidth={wp('80%')}
           ww={wp('8%')}

@@ -15,7 +15,8 @@ import {
     phoneIcon,
     placeholder,
     placeholder1,
-    loader
+    loader,
+    check
   } from '../../../assets/Images';
   import { wp} from '../../../Color/Color';
 import Appbtn from '../../../Components/Appbtn';
@@ -25,7 +26,7 @@ import Modal from 'react-native-modal';
 const Profile = ({navigation}) =>{
     const {
         user,
-        data,
+        dataa,
         show,
         phone,
         emailId,
@@ -41,11 +42,14 @@ const Profile = ({navigation}) =>{
         setEmailId,
         setPhone,
         setUser,
+        modalVisible2
       } = useProfile({navigation});
+
+      
 
     return(
       <>
-      { !data ? 
+      { !dataa ? 
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <LottieView source={loader} style={{ width: wp('100%'), height: wp('70%') }} autoPlay loop />
         </View> : 
@@ -54,7 +58,7 @@ const Profile = ({navigation}) =>{
       backButton={true}
       text={'Profile'}
       onPressBack={()=>navigation.goBack()}
-      img={data ? {uri:data?.avatar} : placeholder }
+      img={dataa ? {uri:dataa?.avatar} : placeholder }
       >
        
      <View style={styles.container}>
@@ -101,6 +105,7 @@ const Profile = ({navigation}) =>{
          imgHeight={wp('4%')}
          keyboardType={'email-address'}
          marginTop={hp('1%')}
+         editable={false}
        />
         {show && !emailId ? (
          <Text style={styles.validation2}>Please enter your email</Text>
@@ -136,6 +141,12 @@ const Profile = ({navigation}) =>{
      <Modal isVisible={modalVisible}>
        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
          <LottieView source={loader} style={{ width: wp('100%'), height: wp('70%') }} autoPlay loop />
+       </View>
+     </Modal>
+
+     <Modal isVisible={modalVisible2}>
+       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+         <LottieView source={check} style={{ width: wp('100%'), height: wp('70%') }} autoPlay loop />
        </View>
      </Modal>
   

@@ -3,7 +3,7 @@ import {wp, hp, FontSize, Fonts, Color} from '../Color/Color';
 import React from 'react';
 import {drawerIcon, placeholder} from '../assets/Images';
 
-const BookingBg2 = ({children, userImg, txt1, txt2, mainImg, OpenDrawer, ml, tf, data}) => {
+const BookingBg2 = ({children, userImg, txt1, txt2, mainImg, OpenDrawer, ml, tf, data, profile}) => {
   return (
     <View
       style={{
@@ -26,14 +26,16 @@ const BookingBg2 = ({children, userImg, txt1, txt2, mainImg, OpenDrawer, ml, tf,
           />
         </TouchableOpacity>
 
-       
-          {
+       <TouchableOpacity onPress={profile}> 
+       {
             data ? 
             <Image source={userImg} resizeMode='cover' style={{width: wp('10%'), height: wp('10%'), borderRadius:wp('20%')}} />
             :
             <Image source={placeholder} resizeMode='contain' style={{width: wp('10%'), height: wp('10%')}} />
 
           }
+       </TouchableOpacity>
+         
          
         
 

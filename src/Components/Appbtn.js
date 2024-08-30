@@ -10,7 +10,7 @@ const Appbtn = ({onPress, btnText, mt, mb, ls, disabled}) => {
       onPress={onPress}
       style={[
         styles.button,
-        {marginTop: mt || hp('2%'), marginBottom: mb || hp('5%')},
+        {marginTop: mt || hp('2%'), marginBottom: mb || hp('5%'), zIndex:-1},
       ]}>
       <Text style={[styles.buttonText, {letterSpacing: ls || wp('1%')}]}>
         {btnText}

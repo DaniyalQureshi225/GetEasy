@@ -99,7 +99,7 @@ function MyDrawerCar({navigation}) {
         component={TermsAndCondition}
         options={{
           //   headerShown: false,
-          drawerLabel: 'Terms and Conditions',
+          drawerLabel: 'Terms and Services',
           drawerIcon: ({color}) => (
             <Icon
               color={Color.white}

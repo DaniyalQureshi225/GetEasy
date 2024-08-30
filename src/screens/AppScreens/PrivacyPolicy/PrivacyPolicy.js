@@ -9,15 +9,16 @@ import Appbtn from '../../../Components/Appbtn';
 import { Lorem, LoremBig } from '../../../Components/Data';
 import { placeholder } from '../../../assets/Images';
 import useFilter from '../Filter/useFilter';
+import { useAppContext } from '../../../Components/AppContext';
 
 const PrivacyPolicy = ({navigation}) =>{
-    const {data} = useFilter();
+  const { dataa, errorr, myToken } = useAppContext();
     return(
        <ProfileThemeBg
        backButton={true}
        text={'Privacy Policy'}
        onPressBack={()=>navigation.goBack()}
-       img={data ? {uri:data?.avatar} : placeholder}
+       img={dataa ? {uri:dataa?.avatar} : placeholder}
        >
         
       <View style={styles.container}>

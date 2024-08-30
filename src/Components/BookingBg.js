@@ -2,8 +2,9 @@ import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
 import {wp, hp, FontSize, Fonts, Color} from '../Color/Color';
 import React from 'react';
 import {drawerIcon} from '../assets/Images';
+import Profile from '../screens/AppScreens/Profile/Profile';
 
-const BookingBg = ({children, userImg, txt1, txt2, mainImg, OpenDrawer, ml, tf}) => {
+const BookingBg = ({children, userImg, txt1, txt2, mainImg, OpenDrawer, ml, tf, onPressProfile}) => {
   return (
     <View
       style={{
@@ -26,7 +27,11 @@ const BookingBg = ({children, userImg, txt1, txt2, mainImg, OpenDrawer, ml, tf})
           />
         </TouchableOpacity>
 
+        <TouchableOpacity onPress={onPressProfile}>
         <Image source={userImg} resizeMode='cover' style={{width: wp('10%'), height: wp('10%'), borderRadius:wp('20%')}} />
+
+        </TouchableOpacity>
+
       </View>
 
       <Text

@@ -16,7 +16,8 @@ export const styles = StyleSheet.create({
       justifyContent: 'space-between',
       width: wp('90%'),
       alignSelf: 'center',
-      marginTop:hp('1%')
+      marginTop:hp('1%'),
+      alignItems:'center'
     },
     dateRow: {
       flexDirection: 'row',

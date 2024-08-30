@@ -79,7 +79,7 @@ const FlightBtn = ({
           
           <Auto onPlaceSelect={handlePlaceSelect} placeholder={placeholder}  /> :
           flight ? 
-          <CityDropDown onSelect={handlePlaceSelect} placeHolder={placeholder}/>
+          <CityDropDown onSelect={handlePlaceSelect} placeHolder={placeholder} />
 
           :
             <TextInput

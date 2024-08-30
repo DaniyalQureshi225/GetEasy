@@ -35,6 +35,9 @@ export {default as cars} from './cars.png';
 export {default as clock} from './clock.png';
 export {default as AppIcon} from './AppIcon.png';
 export {default as hotelpics} from './hotelpics.png';
+export {default as hotel} from './hotel.png';
+export {default as car} from './car.png';
+export {default as car1} from './car1.png';
 
 
 
