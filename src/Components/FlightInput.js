@@ -2,6 +2,7 @@ import { TextInput, View, Text, Image } from 'react-native';
 import { wp, hp, FontSize, Fonts, Color } from '../Color/Color';
 import React from 'react';
 import CityDropDown from './CityDropDown';
+import Auto from './Auto';
 
 const FlightBtn = ({
   field,
