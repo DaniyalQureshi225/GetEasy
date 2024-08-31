@@ -1,16 +1,7 @@
 import { View, Text, Image, TouchableOpacity, ScrollView, Linking } from 'react-native';
 import { wp, hp, FontSize, Fonts, Color } from './../../../Color/Color';
 import React, { useState } from 'react';
-import {
-  calender,
-  chair,
-  drawerIcon,
-  land,
-  placeholder,
-  plane,
-  takeOff,
-  userIcon,
-} from './../../../assets/Images';
+import { calender, chair, drawerIcon, land, placeholder, plane, takeOff, userIcon } from './../../../assets/Images';
 import FlightBtn from '../../../Components/FlightInput';
 import ToggleBtn from '../../../Components/ToggleBtn';
 import FlightDateBtn from '../../../Components/FlightDateBtn';
@@ -22,19 +13,21 @@ import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import BottomTab from '../../../Components/BottomTab';
 import DatePicker from 'react-native-date-picker';
 import ScreenWraper from '../../../Components/ScreenWraper';
-import useBookFlight from './useBookFlight';
 import moment from 'moment';
 import { styles } from './style';
-import { useAppContext } from '../../../Components/AppContext';
+import { useAppContext } from '../../../Components/AppContext'; 
 
 const BookingBg = ({ navigation }) => {
-  const { dataa, errorr, myToken } = useAppContext();
+  const { dataa } = useAppContext(); // Assuming `dataa` is being used
+  
+  const yesterday2 = new Date();
+  yesterday2.setDate(yesterday2.getDate() - 2);
 
   const [myCity, setMyCity] = useState(null);
   const [myCity2, setMyCity2] = useState(null);
   const [myCity3, setMyCity3] = useState('');
   const [myCity4, setMyCity4] = useState('');
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(yesterday2);
   const [date2, setDate2] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -49,24 +42,28 @@ const BookingBg = ({ navigation }) => {
 
   const CheckIn = moment(date).format('YYYY-MM-DD');
   const CheckOut = moment(date2).format('YYYY-MM-DD');
-  const CheckCurrent = moment(new Date()).format('YYYY-MM-DD');
+  const CheckCurrent = moment(yesterday2).format('YYYY-MM-DD');
+  const CheckCurrent2 = moment(new Date()).format('YYYY-MM-DD');
 
   const handleCitySelect = (city) => {
     setMyCity(city);
+    console.log('Selected City 1:', city);
   };
-
 
 
   const handleCitySelect2 = (city) => {
     setMyCity2(city);
+    console.log('Selected City 2:', city);
   };
 
   const handleCitySelect3 = (city) => {
     setMyCity3(city);
+    console.log('Selected City 3:', city);
   };
 
   const handleCitySelect4 = (city) => {
     setMyCity4(city);
+    console.log('Selected City 4:', city);
   };
 
   const handleKidsChange = (newKids) => {
@@ -74,7 +71,6 @@ const BookingBg = ({ navigation }) => {
     const adjustment = '-11'.repeat(newKids); 
     setTimeAdjustment(adjustment);
   };
-
 
   const handlePress2 = () => {
     const url = kids === '' && adult === '1' ? `https://booking.kayak.com/flights/${myCity3?.code}-${myCity4?.code}/${CheckIn}/${CheckOut}` :
@@ -90,9 +86,6 @@ const BookingBg = ({ navigation }) => {
     Linking.openURL(url).catch(err => console.error('Failed to open URL: ', err));
   };
   
-  
-
-
   return (
     <ScreenWraper>
       <View style={{ flex: 1, backgroundColor: Color.primaryColor, zIndex: -1, position: 'relative' }}>
@@ -107,7 +100,6 @@ const BookingBg = ({ navigation }) => {
             style={{ width: wp('10%'), height: wp('10%'), borderRadius: wp('20%') }}
           />
           </TouchableOpacity>
-         
         </View>
 
         <Text style={{ marginLeft: wp('5%'), color: Color.white, fontSize: FontSize.font14, marginTop: hp('1%') }}>
@@ -270,9 +262,10 @@ const BookingBg = ({ navigation }) => {
                   setField={setDate2}
                   text={'arrival'}
                   img={calender}
-                  date={CheckOut !== CheckCurrent ? CheckOut :'YYYY-MM-DD'}
+                  date={CheckOut !== CheckCurrent2 ? CheckOut : 'YYYY-MM-DD'}
                   textWidth={wp('80%')}
                   containerWidth={wp('43%')}
+                  disabled={CheckIn !== CheckCurrent ? false : true}
                 />
               </View>
               <FlightBigField
@@ -296,7 +289,7 @@ const BookingBg = ({ navigation }) => {
                 setField3={setWeight}
                 mb={hp('8%')}
               />
-              <Appbtn disabled={myCity?.length < 3 && myCity2.length < 3 ? true : false} onPress={()=>handlePress2()} mt={hp('3%')} btnText={'Search Now'} />
+              <Appbtn disabled={myCity?.length < 3 && myCity2?.length < 3 ? true : false} onPress={() => handlePress2()} mt={hp('3%')} btnText={'Search Now'} />
             </>
           )}
         </ScrollView>
@@ -334,7 +327,7 @@ const BookingBg = ({ navigation }) => {
             setDate2(date2);
           }}
           onCancel={() => {
-            setOpen(false);
+            setOpen2(false);
           }}
         />
       </View>

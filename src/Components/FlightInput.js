@@ -1,6 +1,5 @@
 import { TextInput, View, Text, Image } from 'react-native';
 import { wp, hp, FontSize, Fonts, Color } from '../Color/Color';
-import Auto from './Auto';
 import React from 'react';
 import CityDropDown from './CityDropDown';
 
@@ -23,10 +22,9 @@ const FlightBtn = ({
   flight
 }) => {
 
-  const handlePlaceSelect = (city, details) => {
-    
+  const handlePlaceSelect = (city) => {
+    console.log('City selected in FlightBtn:', city); // Debugging log
     onCitySelect(city); 
-    console.log('Selected City:', city);
   }
 
   return (

@@ -12,11 +12,13 @@ const FlightDateBtn = ({
   date,
   containerWidth,
   textWidth,
-  onPress
+  onPress,
+  disabled
 }) => {
   return (
     <TouchableOpacity
     onPress={onPress}
+    disabled={disabled}
       style={{
         flexDirection: 'row',
         backgroundColor: Color.textBox,
@@ -35,6 +37,7 @@ const FlightDateBtn = ({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+       
       }}>
       <Image
         source={img}

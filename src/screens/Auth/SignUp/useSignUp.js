@@ -82,13 +82,17 @@ const useSignUp = ({navigation}) => {
       );
       console.log('Response:', response.data.message);
       setModalVisible(false)
-      navigation.navigate('Thanks')
+      // navigation.navigate('Thanks')
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Thanks' }],
+      })
     } catch ({error, response}) {
       setModalVisible(false)
       console.error('Error Response:', error, );
 
       setTimeout(()=>{
-        showSnackbar(response?.data?.error);
+        showSnackbar(response?.data?.error?.length > 0 ? response?.data.error : 'Something went wrong');
       },1000)
     }
   };

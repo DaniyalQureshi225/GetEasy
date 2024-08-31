@@ -4,7 +4,7 @@ import { Color } from '../../../Color/Color';
 import { Api } from '../../../Api/Api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import Snackbar from 'react-native-snackbar'; // Make sure to import Snackbar
+import Snackbar from 'react-native-snackbar'; 
 import { useAppContext } from '../../../Components/AppContext';
 
 const useProfile = ({ navigation }) => {
@@ -23,8 +23,9 @@ const useProfile = ({ navigation }) => {
 
   const { dataa, errorr, myToken, triggerApiCall2 } = useAppContext();
 
+  console.log('MyToken', myToken)
 
-
+  const [myTokenNew, setMyTokenNew] = useState('')
 
   const showSnackbar = message => {
     Snackbar.show({
@@ -62,6 +63,16 @@ const useProfile = ({ navigation }) => {
   };
 
 
+  const getData = async () => {
+    try {
+      const introValue = await AsyncStorage.getItem('nextStay');
+      const token1 = await AsyncStorage.getItem('Token');
+    
+      setMyTokenNew(token1 || ''); // Ensure myToken is a string
+    } catch (e) {
+      console.error('Failed to load data from AsyncStorage:', e);
+    }
+  };
 
 
 
@@ -78,7 +89,7 @@ const useProfile = ({ navigation }) => {
     }
   
     formData.append('username', user);
-    formData.append('email', emailId);
+    // formData.append('email', emailId);
     formData.append('phone', phone);
   
     try {
@@ -87,26 +98,27 @@ const useProfile = ({ navigation }) => {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${myToken}`,
+            Authorization: `Bearer ${myTokenNew}`,
             'Content-Type': 'multipart/form-data',
           },
         },
       );
   
-      console.log('Response:', response?.data?.message);
-      setModalVisible(false);
-      setModalVisible2(true);
       triggerApiCall2()
+      setModalVisible(false);
+      
       setTimeout(()=>{
-        setModalVisible2(false);
-      }, 4000)
+       navigation.navigate('LookingFor')
+      }, 1000)
      
     } catch (error) {
       
       setModalVisible(false);
+
+      console.log(error);
   
       // Check if error.response exists
-      const errorMessage = error?.response?.data?.error || 'An error occurred';
+      const errorMessage = error?.response?.data?.error ;
 
       setTimeout(()=>{
         showSnackbar(errorMessage);
@@ -149,6 +161,12 @@ const useProfile = ({ navigation }) => {
     }
   }, [data]);
 
+  useEffect(()=>{
+    getData()
+  },[])
+
+  console.log(myTokenNew);
+
   return {
     user,
     dataa,
@@ -168,7 +186,7 @@ const useProfile = ({ navigation }) => {
     setPassword,
     confirmPassword,
     setConfirmPassword,
-    modalVisible2
+    modalVisible2,
   };
 };
 

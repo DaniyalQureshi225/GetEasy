@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, Linking, TextInput} from 'react-native';
+import React, { useState } from 'react';
+import { View, Linking, Text } from 'react-native';
 import moment from 'moment';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import DatePicker from 'react-native-date-picker';
@@ -8,37 +8,38 @@ import BookingBg2 from '../../../Components/BookingBg2';
 import PlaceInput from '../../../Components/PlaceInput';
 import Appbtn from '../../../Components/Appbtn';
 import BottomTab from '../../../Components/BottomTab';
-import {Color, wp, hp, Fonts, FontSize} from '../../../Color/Color';
-import {user, hotelpics} from '../../../assets/Images';
+import { Color, wp, hp } from '../../../Color/Color';
+import { user, hotelpics } from '../../../assets/Images';
 import DatePickerBtn from '../../../Components/DatePickerBtn';
-import useFilter from './useFilter';
-import CityDropdown from '../../../Components/CityDropDown';
-import Icon from '../../../Components/Icon';
 import SmallTextBox from '../../../Components/SmallTextBox';
 import { useAppContext } from '../../../Components/AppContext';
 
-const Filter = ({navigation}) => {
-  const { dataa, errorr, myToken } = useAppContext();
+const Filter = ({ navigation }) => {
+  const yesterday2 = new Date();
+  yesterday2.setDate(yesterday2.getDate() - 2);
+
+  const { dataa } = useAppContext();
 
   const [city, setCity] = useState('');
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(yesterday2);
   const [date2, setDate2] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
-  const [myCity, setMyCity] = useState('');
-
+  const [qury, setQury] = useState('');
   const CheckIn = moment(date).format('YYYY-MM-DD');
   const CheckOut = moment(date2).format('YYYY-MM-DD');
-  const CheckCurrent = moment(new Date()).format('YYYY-MM-DD');
+  const CheckCurrent = moment(yesterday2).format('YYYY-MM-DD');
+  const CheckCurrent2 = moment(new Date()).format('YYYY-MM-DD');
 
-  const [adult, setAdult] = useState('');
+  const [adult, setAdult] = useState(1);
   const [kids, setKids] = useState('');
   const [room, setRoom] = useState('');
 
+  const [show, setShow] = useState(false)
 
-  const handlePlaceDetailsSelect = details => {
+  const handlePlaceDetailsSelect = (details) => {
     console.log('Received details:', details);
-
+    setQury(details);
     if (details && details?.details?.address_components) {
       const locality = details.address_components.find(
         component =>
@@ -47,7 +48,7 @@ const Filter = ({navigation}) => {
       );
 
       if (locality) {
-        setMyCity(details?.address_components?.long_name);
+        setCity(locality.long_name);
         console.log('Place Details:', locality.long_name);
       } else {
         console.log('Locality not found in address components.');
@@ -64,27 +65,27 @@ const Filter = ({navigation}) => {
     );
   };
 
-  (``);
+  // console.log('City in Filter:', city); 
 
   return (
     <ScreenWraper>
       <BookingBg2
-        userImg={{uri: dataa?.avatar}}
+        userImg={{ uri: dataa?.avatar }}
         txt1={dataa ? `Hello ${dataa?.username}` : null}
         txt2={'Search Hotels'}
         OpenDrawer={() => navigation.toggleDrawer()}
         mainImg={hotelpics}
         ml={wp('-20%')}
-        profile={()=>navigation.navigate('Profile')}
+        profile={() => navigation.navigate('Profile')}
         data={dataa}>
-        <View style={{height: hp('50%'), marginTop: hp('10%')}}>
+        <View style={{ height: hp('60%'), marginTop: hp('10%') }}>
           <View
             style={{
               width: wp('90%'),
               justifyContent: 'space-between',
               flexDirection: 'row',
               alignSelf: 'center',
-              marginTop: hp('2%'),
+              marginTop: hp('3%'),
             }}>
             <DatePickerBtn
               onPress={() => setOpen(true)}
@@ -94,10 +95,29 @@ const Filter = ({navigation}) => {
             />
             <DatePickerBtn
               onPress={() => setOpen2(true)}
-              text={CheckOut !== CheckCurrent ? CheckOut : 'Check out'}
+              text={CheckOut !== CheckCurrent2 ? CheckOut : 'Check out'}
               type={'AntDesign'}
               name={'calendar'}
+              disabled={CheckIn !== CheckCurrent ? false : true}
             />
+          </View>
+
+          <View
+            style={{
+              width: wp('90%'),
+              marginLeft: wp('10%'),
+              flexDirection: 'row',
+              alignSelf: 'center',
+            }}>
+              {/* {
+                CheckOut === CheckCurrent2  && show ? <Text style={{ color: Color.red, width: wp('45%') }}>Required</Text> : null
+              }
+
+              {
+               CheckIn === CheckCurrent && show ? <Text style={{ color: Color.red, width: wp('20%') }}>Required</Text> : null
+              } */}
+           
+            
           </View>
 
           <View
@@ -105,31 +125,31 @@ const Filter = ({navigation}) => {
               width: wp('90%'),
               flexDirection: 'row',
               alignSelf: 'center',
-              marginTop: hp('1%'),
+              marginTop: hp('3%'),
               height: hp('5.7%'),
-              justifyContent:'space-between'
+              justifyContent: 'space-between',
             }}>
-          <SmallTextBox
-          type={'Entypo'}
-          name={'man'}
-          placeholder={'Adult'}
-          field={adult}
-          setField={setAdult}
-          />
-           <SmallTextBox
-          type={'FontAwesome'}
-          name={'child'}
-          placeholder={'kids'}
-          field={kids}
-          setField={setKids}
-          />
-           <SmallTextBox
-          type={'MaterialIcons'}
-          name={'bedroom-child'}
-          placeholder={'Rooms'}
-          field={room}
-          setField={setRoom}
-          />
+            <SmallTextBox
+              type={'Entypo'}
+              name={'man'}
+              placeholder={'Adult'}
+              field={adult}
+              setField={setAdult}
+            />
+            <SmallTextBox
+              type={'FontAwesome'}
+              name={'child'}
+              placeholder={'Kids'}
+              field={kids}
+              setField={setKids}
+            />
+            <SmallTextBox
+              type={'MaterialIcons'}
+              name={'bedroom-child'}
+              placeholder={'Rooms'}
+              field={room}
+              setField={setRoom}
+            />
           </View>
 
           <View
@@ -145,11 +165,11 @@ const Filter = ({navigation}) => {
             style={{
               marginTop: 'auto',
               backgroundColor: Color.white,
-              marginBottom: hp('4%'),
+              marginBottom: hp('10%'),
             }}>
             <Appbtn
-              disabled={city === '' ? true : false}
-              onPress={() => handlePress()}
+              
+              onPress={city?.length < 2 ? ()=>setShow(true) : ()=>handlePress()}
               btnText={'Search Now'}
             />
           </HideWithKeyboard>
@@ -159,16 +179,17 @@ const Filter = ({navigation}) => {
       <PlaceInput
         field={city}
         setField={setCity}
-        inputWidht={{width: wp('70%'), color: Color.black}}
+        inputWidht={{ width: wp('70%'), color: Color.black }}
         type={'AntDesign'}
         name={'search1'}
         containerWidth={wp('90%')}
         placeholder={'Search'}
         onDetailsSelect={handlePlaceDetailsSelect}
+        show={city?.length < 2 && show ? true : false}
       />
 
       <HideWithKeyboard>
-        <View style={{backgroundColor: Color.white}}>
+        <View style={{ backgroundColor: Color.white }}>
           <BottomTab
             isHome={true}
             onPressFlight={() => navigation.navigate('BookFlight')}

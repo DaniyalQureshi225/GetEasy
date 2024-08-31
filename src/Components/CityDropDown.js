@@ -25,7 +25,6 @@ const CityDropDown = ({ onSelect, placeHolder }) => { // Added onSelect prop
           `https://onlinedemolink.com/custom_live/geteasytripapp/public/api/get/iata?city=${query}`,
         );
         setData(response.data.slice(0, 4));
-       
       } catch (err) {
         setError(err.message);
       } finally {
@@ -50,6 +49,8 @@ const CityDropDown = ({ onSelect, placeHolder }) => { // Added onSelect prop
     }
   };
 
+  console.log(number)
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -68,7 +69,7 @@ const CityDropDown = ({ onSelect, placeHolder }) => { // Added onSelect prop
         placeholderTextColor={Color.gray}
       />
 
-      {show &&  (
+      {show && (
         <View style={styles.dropdownContainer}>
           {data.map((item, index) => (
             <TouchableOpacity
@@ -89,14 +90,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-   
   },
   input: {
     width: wp('65%'),
     height: hp('5%'),
-    
     color: Color.black,
-   
   },
   dropdownContainer: {
     position: 'absolute',

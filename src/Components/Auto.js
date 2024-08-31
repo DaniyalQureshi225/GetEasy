@@ -1,11 +1,11 @@
 import { StyleSheet } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Color, wp } from "../Color/Color";
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { GoogleMapKeyPersonal } from './Data';
-import { placeholder } from "../assets/Images";
 
-const Auto = ({ onPlaceSelect, placeholder }) => {
+const Auto = ({ onPlaceSelect, placeholder, onInputValueChange }) => {
+    const [inputValue, setInputValue] = useState(''); 
 
     // Helper function to extract city from address components
     const getCityName = (addressComponents) => {
@@ -26,7 +26,13 @@ const Auto = ({ onPlaceSelect, placeholder }) => {
             placeholder={placeholder}
             textInputProps={{
                 placeholderTextColor: Color.gray,
-                returnKeyType: "search"
+                returnKeyType: "search",
+                onChangeText: (text) => {
+                    setInputValue(text); // Update state with the new text value
+                    if (onInputValueChange) {
+                        onInputValueChange(text); // Notify parent component about input value change
+                    }
+                }
             }}
             query={{
                 key: GoogleMapKeyPersonal,
@@ -102,5 +108,3 @@ const styles = StyleSheet.create({
         },
     },
 });
-
-

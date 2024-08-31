@@ -9,7 +9,7 @@ const Thanks = ({navigation}) => {
   return (
     <AppThemeBlue
       closeBtn={true}
-      onPressBack={() => navigation.goBack()}
+      onPressBack={() => navigation.navigate('SignIn')}
       btn={true}
       btnText={'sign in now'}
       logo={true}

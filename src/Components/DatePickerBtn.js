@@ -3,11 +3,12 @@ import Icon from "./Icon";
 import { wp, hp, FontSize, Color } from "../Color/Color";
 import React from "react";
 
-const DatePickerBtn = ({text, type, name, onPress}) =>{
+const DatePickerBtn = ({text, type, name, onPress, disabled}) =>{
     return(
         <TouchableOpacity
         onPress={onPress}
         activeOpacity={0.6}
+        disabled={disabled}
           style={{
             backgroundColor: Color.textBox,
             alignItems: 'center',

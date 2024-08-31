@@ -68,7 +68,7 @@ const useSignIn = ({ navigation, onSuccess }) => {
       setModalVisible(false);
       console.error('Error:', error);
       setTimeout(()=>{
-        showSnackbar(response?.data?.error);
+        showSnackbar(response?.data?.error?.length > 0 ? response?.data.error : 'Something went wrong');
         
       },1000)
       
