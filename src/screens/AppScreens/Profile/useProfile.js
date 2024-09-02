@@ -21,9 +21,8 @@ const useProfile = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const { dataa, errorr, myToken, triggerApiCall2 } = useAppContext();
+  const { dataa, errorr, myToken, triggerApiCall } = useAppContext();
 
-  console.log('MyToken', myToken)
 
   const [myTokenNew, setMyTokenNew] = useState('')
 
@@ -68,7 +67,7 @@ const useProfile = ({ navigation }) => {
       const introValue = await AsyncStorage.getItem('nextStay');
       const token1 = await AsyncStorage.getItem('Token');
     
-      setMyTokenNew(token1 || ''); // Ensure myToken is a string
+      setMyTokenNew(token1 || '');
     } catch (e) {
       console.error('Failed to load data from AsyncStorage:', e);
     }
@@ -103,13 +102,16 @@ const useProfile = ({ navigation }) => {
           },
         },
       );
-  
-      triggerApiCall2()
-      setModalVisible(false);
-      
+      triggerApiCall(myTokenNew)
+      setTimeout(()=>{
+        setModalVisible(false);
+      },5000)
+     
+    
+
       setTimeout(()=>{
        navigation.navigate('LookingFor')
-      }, 1000)
+      }, 6000)
      
     } catch (error) {
       

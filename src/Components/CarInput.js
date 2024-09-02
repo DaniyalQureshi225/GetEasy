@@ -4,7 +4,7 @@ import React from 'react';
 import CityDropDown from './CityDropDown';
 import Auto from './Auto';
 
-const FlightBtn = ({
+const CarInput = ({
   field,
   setField,
   text,
@@ -25,7 +25,7 @@ const FlightBtn = ({
 }) => {
   const handlePlaceSelect = (city, details) => {
     console.log('City selected in FlightBtn:', city); 
-    onCitySelect(city); // Call parent function
+    onCitySelect(details); // Call parent function
     
   };
 
@@ -110,4 +110,4 @@ const FlightBtn = ({
   );
 };
 
-export default FlightBtn;
+export default CarInput;

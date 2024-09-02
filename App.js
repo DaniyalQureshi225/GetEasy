@@ -19,7 +19,7 @@ const App = () => {
       const introValue = await AsyncStorage.getItem('nextStay');
       const token = await AsyncStorage.getItem('Token');
       setIntro(introValue === 'true' ? 'true' : 'false');
-      setMyToken(token || ''); // Ensure myToken is a string
+      setMyToken(token ? token.trim() : '');
       setActive(true);
     } catch (e) {
       console.error('Failed to load data from AsyncStorage:', e);
@@ -31,29 +31,26 @@ const App = () => {
       SplashScreen.hide();
       getData();
     }, 3000); // 3 seconds splash screen delay
-  }, [getData]);
+  }, []);
 
   console.log('Token:', myToken);
 
   return (
-    <AppProvider>
-    <View style={{ flex: 1 }}>
-     
-      <StatusBar barStyle="light-content" backgroundColor={Color.primaryColor} />
-      {active ? (
-        intro === 'false' ? (
-          <NextStay onIntroComplete={getData} />
-        ) : myToken ? (
-          <AppRouteHome />
+    <AppProvider myToken={myToken}>
+      <View style={{ flex: 1 }}>
+        <StatusBar barStyle="light-content" backgroundColor={Color.primaryColor} />
+        {active ? (
+          intro === 'false' ? (
+            <NextStay onIntroComplete={getData} />
+          ) : myToken ? (
+            <AppRouteHome />
+          ) : (
+            <AppRoute onIntroComplete={getData} />
+          )
         ) : (
-          <AppRoute onIntroComplete={getData} />
-        )
-      ) : (
-        <LoaderScreen />
-      )}
-    
-    
-    </View>
+          <LoaderScreen />
+        )}
+      </View>
     </AppProvider>
   );
 };

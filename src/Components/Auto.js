@@ -1,11 +1,13 @@
-import { StyleSheet } from "react-native";
-import React, { useState } from "react";
-import { Color, wp } from "../Color/Color";
+import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import React, { useState, useRef } from "react";
+import { Color, hp, wp } from "../Color/Color";
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { GoogleMapKeyPersonal } from './Data';
+import Icon from "./Icon";
 
 const Auto = ({ onPlaceSelect, placeholder, onInputValueChange }) => {
-    const [inputValue, setInputValue] = useState(''); 
+    const [inputValue, setInputValue] = useState('');
+    const autocompleteRef = useRef(null); // Create a ref for the GooglePlacesAutocomplete component
 
     // Helper function to extract city from address components
     const getCityName = (addressComponents) => {
@@ -21,16 +23,17 @@ const Auto = ({ onPlaceSelect, placeholder, onInputValueChange }) => {
 
     return (
         <GooglePlacesAutocomplete
-            disableScroll={true}
+            ref={autocompleteRef} // Attach ref to GooglePlacesAutocomplete component
             styles={styles.searchbar}
             placeholder={placeholder}
             textInputProps={{
+                value: inputValue,
                 placeholderTextColor: Color.gray,
                 returnKeyType: "search",
                 onChangeText: (text) => {
-                    setInputValue(text); // Update state with the new text value
+                    setInputValue(text); 
                     if (onInputValueChange) {
-                        onInputValueChange(text); // Notify parent component about input value change
+                        onInputValueChange(text); 
                     }
                 }
             }}
@@ -56,9 +59,32 @@ const Auto = ({ onPlaceSelect, placeholder, onInputValueChange }) => {
                 }
             }}
             onFail={error => console.error(error)}
+            renderRightButton={() => (
+                <TouchableOpacity
+                    style={styles.clearButton}
+                    onPress={() => {
+                        autocompleteRef.current.setAddressText(''); // Clear the text input
+                        setInputValue(''); // Reset the state
+                        if (onInputValueChange) {
+                            onInputValueChange(''); // Notify parent component that the input is cleared
+                        }
+                    }}
+                >
+                    {
+                        inputValue === '' ? null : (
+                            <Icon
+                                type={'Ionicons'}
+                                name={'close-circle'}
+                                size={wp('5%')}
+                                color={Color.gray}
+                            />
+                        )
+                    }
+                </TouchableOpacity>
+            )}
         />
-    )
-}
+    );
+};
 
 export default Auto;
 
@@ -71,11 +97,9 @@ const styles = StyleSheet.create({
             backgroundColor: Color.textBox,
             width: wp('70%'),
             height: wp('10%'),
-            marginTop: wp('0.8%'),
-            color: Color.black,
+            marginTop: wp('-0.8%'),
             alignItems: 'center',
-            zIndex: 9999,
-            marginTop:-1
+            zIndex: 100, // Set a lower zIndex for the input container
         },
         description: {
             color: Color.black,
@@ -89,6 +113,7 @@ const styles = StyleSheet.create({
             fontSize: 16,
             backgroundColor: Color.textBox,
             width: wp('50%'),
+           
         },
         listView: {
             backgroundColor: Color.white,
@@ -96,7 +121,7 @@ const styles = StyleSheet.create({
             borderWidth: 1,
             position: 'absolute',
             width: wp('70%'),
-            zIndex: 99999,  
+            zIndex: 1000, // Set a higher zIndex for the suggestion list
             marginTop: 20,
         },
         row: {
@@ -106,5 +131,10 @@ const styles = StyleSheet.create({
             height: 0.5,
             backgroundColor: Color.black,
         },
+    },
+    clearButton: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: wp('1%'),
     },
 });

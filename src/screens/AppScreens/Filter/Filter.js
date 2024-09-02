@@ -29,7 +29,7 @@ const Filter = ({ navigation }) => {
   const CheckIn = moment(date).format('YYYY-MM-DD');
   const CheckOut = moment(date2).format('YYYY-MM-DD');
   const CheckCurrent = moment(yesterday2).format('YYYY-MM-DD');
-  const CheckCurrent2 = moment(new Date()).format('YYYY-MM-DD');
+  const CheckCurrent2 = moment(new Date()).format('YYYY-MM-DD'); 
 
   const [adult, setAdult] = useState(1);
   const [kids, setKids] = useState('');
@@ -61,11 +61,11 @@ const Filter = ({ navigation }) => {
   const handlePress = () => {
     const url = `https://www.booking.com/searchresults.en-gb.html?ss=${city}&lang=en-gb&sb=1&&checkin=${CheckIn}&checkout=${CheckOut}&group_adults=${adult}&no_rooms=${room}&group_children=${kids}`;
     Linking.openURL(url).catch(err =>
-      console.error('Failed to open URL: ', err),
+      console.error('Failed to open URL: ', err), 
     );
   };
 
-  // console.log('City in Filter:', city); 
+  console.log('City in Filter:', city); 
 
   return (
     <ScreenWraper>
@@ -169,7 +169,7 @@ const Filter = ({ navigation }) => {
             }}>
             <Appbtn
               
-              onPress={city?.length < 2 ? ()=>setShow(true) : ()=>handlePress()}
+              onPress={!city ? ()=>setShow(true) : ()=>handlePress()}
               btnText={'Search Now'}
             />
           </HideWithKeyboard>
@@ -184,7 +184,7 @@ const Filter = ({ navigation }) => {
         name={'search1'}
         containerWidth={wp('90%')}
         placeholder={'Search'}
-        onDetailsSelect={handlePlaceDetailsSelect}
+        onDetailsSelect={handlePlaceDetailsSelect} 
         show={city?.length < 2 && show ? true : false}
       />
 

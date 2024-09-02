@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Color, hp, wp } from '../Color/Color';
+import Icon from './Icon';
 
 const CityDropDown = ({ onSelect, placeHolder }) => { // Added onSelect prop
   const [data, setData] = useState([]);
@@ -16,7 +17,7 @@ const CityDropDown = ({ onSelect, placeHolder }) => { // Added onSelect prop
   const [error, setError] = useState(null);
   const [number, setNumber] = useState('');
   const [show, setShow] = useState(false);
-
+  const [input, setInput] = useState(false);
   const fetchData = async (query) => {
     if (query.length > 2) {
       setLoading(true);
@@ -43,6 +44,7 @@ const CityDropDown = ({ onSelect, placeHolder }) => { // Added onSelect prop
   const handleSelect = (item) => {
     setShow(false); 
     setNumber(item?.city);
+    setInput(true)
    
     if (onSelect) {
       onSelect(item); 
@@ -51,23 +53,47 @@ const CityDropDown = ({ onSelect, placeHolder }) => { // Added onSelect prop
 
   console.log(number)
 
+  const HandleText = () =>{
+    setNumber('');
+    setInput(false);
+    if (onSelect) {
+      onSelect(''); 
+    }
+  }
+
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        onChangeText={(text) => {
-          setNumber(text);
-          if (text.length > 2) {
-            fetchData(text);
-            setShow(true); 
-          } else {
-            setShow(false);
-          }
-        }}
-        value={number}
-        placeholder={placeHolder}
-        placeholderTextColor={Color.gray}
-      />
+      {!input ?
+           <TextInput
+           style={styles.input}
+           onChangeText={(text) => {
+             setNumber(text);
+             if (text.length > 2) {
+               fetchData(text);
+               setShow(true); 
+             } else {
+               setShow(false);
+             }
+           }}
+           value={number}
+           placeholder={placeHolder}
+           placeholderTextColor={Color.gray}
+         /> :
+         <View style={{flexDirection:'row', alignItems:'center'}}>
+                   <Text numberOfLines={1} style={{color:Color.black, width:wp('50%')}}>{number}</Text>
+
+                   <TouchableOpacity onPress={()=>HandleText()}>
+                    <Icon
+                    type={'Ionicons'}
+                    name={'close-circle'}
+                    size={wp('5%')}
+                    color={Color.gray}
+                    />
+                   </TouchableOpacity>
+
+         </View>
+      }
+     
 
       {show && (
         <View style={styles.dropdownContainer}>

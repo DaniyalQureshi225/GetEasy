@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Linking} from 'react-native';
+import {View, StyleSheet, Linking, Text} from 'react-native';
 import {Color, hp, wp} from '../../../Color/Color';
 import {
   calender,
@@ -32,23 +32,23 @@ import MyDrawer from '../../../route/AppDrawer';
 import useBookCar from './useBookCar';
 import CityDropdown from '../../../Components/CityDropDown';
 import CityDropDown from '../../../Components/CityDropDown';
-import { useAppContext } from '../../../Components/AppContext';
+import {useAppContext} from '../../../Components/AppContext';
+import CarInput from '../../../Components/CarInput';
 
 const BookCar = ({navigation}) => {
-
-  const { dataa, errorr, myToken, triggerApiCall } = useAppContext();
-
-
-  
-
+  const {dataa, errorr, myToken, triggerApiCall} = useAppContext();
+  const yesterday2 = new Date();
+  yesterday2.setDate(yesterday2.getDate() - 2);
   const [selectedCity, setSelectedCity] = useState(null);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(yesterday2);
   const [date2, setDate2] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const CheckIn = moment(date).format('DD MMM, YYYY');
   const CheckOut = moment(date2).format('DD MMM, YYYY');
-  const CheckCurrent = moment(new Date()).format('DD MMM, YYYY');
+  const CheckCurrent = moment(yesterday2).format('DD MMM, YYYY');
+  const CheckCurrent2 = moment(new Date()).format('DD MMM, YYYY');
+
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
   const [time, setTime] = useState(new Date());
@@ -69,66 +69,74 @@ const BookCar = ({navigation}) => {
   const doMonth = moment(date).format('MM');
   const doYear = moment(date).format('YYYY');
 
-
   const puDay = moment(date2).format('DD');
   const puHour = moment(time2).format('HH');
   const puMint = moment(time2).format('mm');
   const puMonth = moment(date2).format('MM');
   const puYear = moment(date2).format('YYYY');
 
-
   const [myCity, setMyCity] = useState('');
   const [myCity2, setMyCity2] = useState('');
 
-  
+  const [show, setShow] = useState(false);
 
   const handleCitySelect = city => {
     setMyCity(city);
+    setLat(myCity?.details?.geometry?.location?.lat);
+    setLang(myCity?.details?.geometry?.location?.lng);
   };
 
-  const handleDetails = details => {
-  setLat(details?.details?.geometry?.location?.lat);
-  setLang(details?.details?.geometry?.location?.lng)  
-  };
+  console.log('>>>>>>>>>>',myCity?.details?.address_components[0]?.long_name);
 
-
-  const handleDetails2 = details => {
-    setLat2(details?.details?.geometry?.location?.lat);
-    setLang2(details?.details?.geometry?.location?.lng)  
-    };
+  const handleDetails = (details) => {
+    console.log('Received details:', details); 
+    // setLat(details?.details?.geometry?.location?.lat);
+    // setLang(details?.details?.geometry?.location?.lng);
+};
 
 
   
+
+  const handleDetails2 = details => {
+    // setLat2(details?.details?.geometry?.location?.lat);
+    // setLang2(details?.details?.geometry?.location?.lng);
+  };
+  
+
   const handleCitySelect2 = city => {
     setMyCity2(city);
+    setLat(myCity2?.details?.geometry?.location?.lat);
+    setLang(myCity2?.details?.geometry?.location?.lng);
   };
+
 
   const handlePress = () => {
-
-    const url = `https://cars.booking.com/search-results?=&coordinates=${lat} ${lang}&doDay=${doDay}&doHour=${doHour}&doMinute=${doMint}&doMonth=${doMonth}&doYear=${doYear}&driversAge=20&dropCoordinates=${lat2} ${lang2}&dropLocation=&dropLocationName=${myCity2}&ftsType=C&location=&locationName=${myCity}&preflang=en&puDay=${puDay}&puHour=${puHour}&puMinute=${puMint}&puMonth=${puMonth}&puYear=${puYear}`;
-    Linking.openURL(url).catch(err => console.error('Failed to open URL: ', err));
-   
+    const url = `https://cars.booking.com/search-results?=&coordinates=${myCity?.details?.geometry?.location?.lat} ${myCity?.details?.geometry?.location?.lng}&doDay=${puDay}&doHour=${puHour}&doMinute=${puMint}&doMonth=${puMonth}&doYear=${puYear}&driversAge=20&dropCoordinates=${myCity2?.details?.geometry?.location?.lat} ${myCity2?.details?.geometry?.location?.lng}&dropLocation=&dropLocationName=${myCity2?.details?.address_components[0]?.long_name}&ftsType=C&location=&locationName=${myCity?.details?.address_components[0]?.long_name}&preflang=en&puDay=${doDay}&puHour=${doHour}&puMinute=${doMint}&puMonth=${doMonth}&puYear=${doYear}`;
+    Linking.openURL(url).catch(err =>
+      console.error('Failed to open URL: ', err),
+    );
   };
+  
+  console.log(`https://cars.booking.com/search-results?=&coordinates=${myCity?.details?.geometry?.location?.lat} ${myCity?.details?.geometry?.location?.lang}&doDay=${doDay}&doHour=${doHour}&doMinute=${doMint}&doMonth=${doMonth}&doYear=${doYear}&driversAge=20&dropCoordinates=${myCity2?.details?.geometry?.location?.lat} ${myCity2?.details?.geometry?.location?.lang}&dropLocation=&dropLocationName=${myCity2?.details?.address_components[0]?.long_name}&ftsType=C&location=&locationName=${myCity?.details?.address_components[0]?.long_name}&preflang=en&puDay=${puDay}&puHour=${puHour}&puMinute=${puMint}&puMonth=${puMonth}&puYear=${puYear}`)
 
-
+ 
 
   return (
     <ScreenWraper>
       <BookingBg
         OpenDrawer={() => navigation.toggleDrawer()}
-        userImg={dataa ? {uri:dataa?.avatar} :  placeholder}
+        userImg={dataa ? {uri: dataa?.avatar} : placeholder}
         txt1={dataa ? `Hello ${dataa?.username}` : null}
         txt2={'Search Cars'}
         mainImg={cars}
         ml={wp('-5%')}
-        onPressProfile={()=>navigation.navigate('Profile')}
+        onPressProfile={() => navigation.navigate('Profile')}
         tf={'0deg'}>
-                   
         <View style={{height: hp('2%')}} />
-       
-        <FlightBtn
+
+        <CarInput
           // field={from}
-          // setField={setFrom}
+          setField={setFrom}
           text={'From'}
           img={car1}
           placeholder={'From City'}
@@ -141,9 +149,16 @@ const BookCar = ({navigation}) => {
           
         />
 
-        <FlightBtn
+        {from.length < 3 && show ? (
+          <Text style={{color: Color.red, marginLeft: wp('10%')}}>
+            Please select city
+          </Text>
+        ) : null}
+
+        <CarInput
           text={'To'}
           img={car}
+          setField={setTo}
           placeholder={'To City'}
           textWidth={wp('80%')}
           ww={wp('8%')}
@@ -153,6 +168,12 @@ const BookCar = ({navigation}) => {
           zIndex={50}
           onSelecetDetails={handleDetails2}
         />
+
+        {to.length < 3 && show ? (
+          <Text style={{color: Color.red, marginLeft: wp('10%')}}>
+            Please select city
+          </Text>
+        ) : null}
 
         <View style={styles.dateRow}>
           <FlightDateBtn
@@ -172,10 +193,26 @@ const BookCar = ({navigation}) => {
             setField={setDate2}
             text={'drop-off'}
             img={calender}
-            date={CheckOut !== CheckCurrent ? CheckOut : 'dd mmm, yyyy'}
+            date={CheckOut !== CheckCurrent2 ? CheckOut : 'dd mmm, yyyy'}
             textWidth={wp('80%')}
             containerWidth={wp('43%')}
+            disabled={CheckIn !== CheckCurrent ? false : true}
           />
+        </View>
+        <View style={{flexDirection: 'row', zIndex: -1}}>
+          {CheckIn === CheckCurrent && show ? (
+            <Text style={{color: Color.red, marginLeft: wp('10%')}}>
+              Please select a date
+            </Text>
+          ) : (
+            <Text style={{width: wp('40%')}}></Text>
+          )}
+
+          {CheckOut === CheckCurrent2 && show ? (
+            <Text style={{color: Color.red, marginLeft: wp('12%')}}>
+              Please select a date
+            </Text>
+          ) : null}
         </View>
 
         <View style={[styles.dateRow, {marginBottom: hp('5%')}]}>
@@ -183,7 +220,7 @@ const BookCar = ({navigation}) => {
             onPress={() => setOpen3(true)}
             field={time}
             setField={setTime}
-            text={'pick-up time'}
+            text={'drop-off'}
             img={clock}
             date={PickUpTime !== CurrentTime ? PickUpTime : 'hh:mm'}
             textWidth={wp('80%')}
@@ -194,15 +231,18 @@ const BookCar = ({navigation}) => {
             onPress={() => setOpen4(true)}
             field={time2}
             setField={setTime2}
-            text={'drop-off'}
+            text={'pick-up time'}
             img={clock}
             date={DropOffTime !== CurrentTime ? DropOffTime : 'hh:mm'}
             textWidth={wp('80%')}
             containerWidth={wp('43%')}
           />
         </View>
-        <Appbtn disabled={myCity === '' || myCity2 === '' ? true : false} onPress={()=>handlePress()} btnText={'Search Now'} />
-
+        <Appbtn
+        
+          onPress={() =>[from?.length < 3 || to?.length < 3 || CheckIn === CheckCurrent || CheckOut === CheckCurrent2 ? setShow(true) :  handlePress()]}
+          btnText={'Search Now'}
+        />
       </BookingBg>
       <HideWithKeyboard style={styles.buttonContainer}>
         <BottomTab
@@ -233,13 +273,13 @@ const BookCar = ({navigation}) => {
         mode={'date'}
         open={open2}
         date={date2}
-        minimumDate={new Date()}
+        minimumDate={date}
         onConfirm={date2 => {
           setOpen2(false);
           setDate2(date2);
         }}
         onCancel={() => {
-          setOpen(false);
+          setOpen2(false);
         }}
       />
 
@@ -253,7 +293,7 @@ const BookCar = ({navigation}) => {
           setTime(time);
         }}
         onCancel={() => {
-          setOpen(false);
+          setOpen3(false);
         }}
       />
 
@@ -275,4 +315,3 @@ const BookCar = ({navigation}) => {
 };
 
 export default BookCar;
-
