@@ -36,14 +36,14 @@ import {useAppContext} from '../../../Components/AppContext';
 const BookingBg = ({navigation}) => {
   const {dataa} = useAppContext(); // Assuming `dataa` is being used
 
-  const yesterday2 = new Date();
-  yesterday2.setDate(yesterday2.getDate() - 2);
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
 
   const [myCity, setMyCity] = useState(null);
   const [myCity2, setMyCity2] = useState(null);
   const [myCity3, setMyCity3] = useState('');
   const [myCity4, setMyCity4] = useState('');
-  const [date, setDate] = useState(yesterday2);
+  const [date, setDate] = useState(new Date());
   const [date2, setDate2] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -58,10 +58,16 @@ const BookingBg = ({navigation}) => {
 
   const CheckIn = moment(date).format('YYYY-MM-DD');
   const CheckOut = moment(date2).format('YYYY-MM-DD');
-  const CheckCurrent = moment(yesterday2).format('YYYY-MM-DD');
-  const CheckCurrent2 = moment(new Date()).format('YYYY-MM-DD');
+  const [CheckCurrent, setCheckCurrent] = useState(false);
+  const [CheckCurrent2, setCheckCurrent2] = useState(false);
+
+  const [placeholder, setPlaceholder] = useState('dd mmm, yyyy');
+  const [placeholder2, setPlaceholder2] = useState('dd mmm, yyyy');
+
+  const [CheckinCheck, setCeckinCheck] = useState(true);
 
   const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
 
   const handleCitySelect = city => {
     setMyCity(city);
@@ -95,7 +101,7 @@ const BookingBg = ({navigation}) => {
         ? `https://booking.kayak.com/flights/${myCity3?.code}-${myCity4?.code}/${CheckIn}/${CheckOut}`
         : kids === '' && adult > 1
         ? `https://booking.kayak.com/flights/${myCity3?.code}-${myCity4?.code}/${CheckIn}/${CheckOut}/${adult}adults?sort=bestflight_a`
-        : `https://booking.kayak.com/flights/${myCity3?.code}-${myCity4?.code}/${CheckIn}/${CheckOut}/${adult}adults/children-${timeAdjustment}?sort=bestflight_a`;
+        : `https://booking.kayak.com/flights/${myCity3?.code}-${myCity4?.code}/${CheckIn}/${CheckOut}/${adult}adults/children${timeAdjustment}?sort=bestflight_a`;
     Linking.openURL(url).catch(err =>
       console.error('Failed to open URL: ', err),
     );
@@ -103,9 +109,9 @@ const BookingBg = ({navigation}) => {
 
   const handlePress1 = () => {
     const url =
-      kids === ''
-        ? `https://booking.kayak.com/flights/${myCity?.code}-${myCity2?.code}/${CheckIn}/${adult}adults?sort=bestflight_a`
-        : `https://booking.kayak.com/flights/${myCity?.code}-${myCity2?.code}/${CheckIn}/${adult}adults/children-${timeAdjustment}?sort=bestflight_a`;
+      kids === '' || adult === 1
+        ? `https://booking.kayak.com/flights/${myCity?.code}-${myCity2?.code}/${CheckIn}/${adult}adults/sort=bestflight_a`
+        : `https://booking.kayak.com/flights/${myCity?.code}-${myCity2?.code}/${CheckIn}/${adult}adults/children${timeAdjustment}?sort=bestflight_a`;
     Linking.openURL(url).catch(err =>
       console.error('Failed to open URL: ', err),
     );
@@ -129,7 +135,9 @@ const BookingBg = ({navigation}) => {
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}>
-          <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+          <TouchableOpacity
+            hitSlop={50}
+            onPress={() => navigation.toggleDrawer()}>
             <Image
               source={drawerIcon}
               style={{width: wp('5%'), height: wp('5%')}}
@@ -261,12 +269,12 @@ const BookingBg = ({navigation}) => {
                     setField={setDate}
                     text={'departure'}
                     img={calender}
-                    date={CheckIn !== CheckCurrent ? CheckIn : 'YYYY-MM-DD'}
+                    date={placeholder || CheckIn}
                     textWidth={wp('80%')}
                     containerWidth={wp('43%')}
                   />
 
-                  {CheckIn === CheckCurrent && show ? (
+                  {!CheckCurrent && show ? (
                     <Text style={{color: Color.red, marginLeft: wp('5%')}}>
                       Please select a date
                     </Text>
@@ -283,7 +291,7 @@ const BookingBg = ({navigation}) => {
                     hh={wp('7%')}
                     text2={'Class'}
                   />
-                  {CheckIn === CheckCurrent && show ? (
+                  {!CheckCurrent && show ? (
                     <Text
                       style={{color: Color.red, marginLeft: wp('5%')}}></Text>
                   ) : null}
@@ -312,7 +320,7 @@ const BookingBg = ({navigation}) => {
               />
               <Appbtn
                 onPress={() => [
-                  !myCity?.code || !myCity2?.code || CheckIn === CheckCurrent
+                  !myCity?.code || !myCity2?.code || !CheckCurrent
                     ? setShow(true)
                     : handlePress1(),
                 ]}
@@ -377,7 +385,7 @@ const BookingBg = ({navigation}) => {
                     setField={setDate}
                     text={'departure'}
                     img={calender}
-                    date={CheckIn !== CheckCurrent ? CheckIn : 'YYYY-MM-DD'}
+                    date={placeholder || CheckIn}
                     textWidth={wp('80%')}
                     containerWidth={wp('43%')}
                   />
@@ -390,28 +398,38 @@ const BookingBg = ({navigation}) => {
                     setField={setDate2}
                     text={'arrival'}
                     img={calender}
-                    date={CheckOut !== CheckCurrent2 ? CheckOut : 'YYYY-MM-DD'}
+                    date={placeholder2 || CheckOut}
                     textWidth={wp('80%')}
                     containerWidth={wp('43%')}
-                    disabled={CheckIn !== CheckCurrent ? false : true}
+                    disabled={CheckinCheck}
                   />
                 </View>
-
-              
               </View>
-              <View style={{flexDirection:'row', zIndex:-1}}>
-                  {CheckIn === CheckCurrent && show ? (
-                    <Text style={{color: Color.red, marginLeft: wp('5%')}}>
-                      Please select a date
-                    </Text>
-                  ) : <Text style={{ width:wp('40%')}}></Text>}
+              <View style={{flexDirection: 'row', zIndex: -1}}>
+                {!CheckCurrent && show ? (
+                  <Text style={{color: Color.red, marginLeft: wp('10%')}}>
+                    Please select a date
+                  </Text>
+                ) : null}
 
-                  {CheckOut === CheckCurrent2 && show ? (
-                    <Text style={{color: Color.red, marginLeft: wp('15%')}}>
-                      Please select a date
+                {!CheckCurrent2 && show ? (
+                  <Text
+                    style={{
+                      color: Color.red,
+                      marginLeft: CheckCurrent ? wp('55%') : wp('12%'),
+                    }}>
+                    Please select a date
+                  </Text>
+                ) : null}
+
+                <View style={{flexDirection: 'row', zIndex: -1}}>
+                  {date > date2 && show2 ? (
+                    <Text style={{color: Color.red, marginLeft: wp('10%')}}>
+                      Pickup date must be before drop-off.
                     </Text>
                   ) : null}
                 </View>
+              </View>
               <FlightBigField
                 field={to}
                 setField={setTo}
@@ -435,8 +453,11 @@ const BookingBg = ({navigation}) => {
               />
               <Appbtn
                 onPress={() => [
-                  !myCity3?.code || !myCity4?.code || CheckIn === CheckCurrent
-                    ? setShow(true)
+                  !myCity3?.code ||
+                  !myCity4?.code ||
+                  placeholder === 'dd mmm, yyyy' ||
+                  placeholder2 === 'dd mmm, yyyy'
+                    ? setShow(true) : date > date2 ? setShow2(true)
                     : handlePress2(),
                 ]}
                 mt={hp('3%')}
@@ -462,6 +483,9 @@ const BookingBg = ({navigation}) => {
           onConfirm={date => {
             setOpen(false);
             setDate(date);
+            setPlaceholder('');
+            setCeckinCheck(false);
+            setCheckCurrent(true);
           }}
           onCancel={() => {
             setOpen(false);
@@ -473,10 +497,12 @@ const BookingBg = ({navigation}) => {
           mode={'date'}
           open={open2}
           date={date2}
-          minimumDate={new Date()}
+          minimumDate={date}
           onConfirm={date2 => {
             setOpen2(false);
             setDate2(date2);
+            setPlaceholder2('');
+            setCheckCurrent2(true);
           }}
           onCancel={() => {
             setOpen2(false);

@@ -4,7 +4,7 @@ import Icon from './Icon';
 import Auto from './Auto';
 import { Color, wp, hp } from './../Color/Color';
 
-const PlaceInput = ({ field, setField, inputWidht, type, name, containerWidth, placeholder, mt, onDetailsSelect, show }) => {
+const PlaceInput = ({zIndexRequired, field, setField, inputWidht, type, name, containerWidth, placeholder, mt, onDetailsSelect, show }) => {
 
   const handlePlaceSelect = (city, details, inputValue) => {
     console.log('Received inputValue:', inputValue);
@@ -44,16 +44,17 @@ const PlaceInput = ({ field, setField, inputWidht, type, name, containerWidth, p
           color={Color.gray}
         />
       </View>
-      {show ? (
+      {show ? 
         <Text style={{
           color: Color.red,
           position: 'absolute',
           top: hp('40%'),
-          left: wp('10%')
+          left: wp('10%'),
+          zIndex:zIndexRequired
         }}>
           Required
         </Text>
-      ) : null}
+       : null}
     </>
   );
 }

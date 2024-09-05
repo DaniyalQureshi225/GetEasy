@@ -21,7 +21,8 @@ const FlightBigField = ({
   t3,
   field3,
   setField3,
-  mb
+  mb,
+  mt
 }) => {
   return (
     <View
@@ -30,7 +31,7 @@ const FlightBigField = ({
         backgroundColor: Color.textBox,
         width: containerWidth || wp('90%'),
         alignSelf: 'center',
-        marginTop: hp('3%'),
+        marginTop: hp('3%') || mt,
         height: hp('8%'),
         alignItems: 'center',
         paddingHorizontal: wp('5%'),
@@ -52,6 +53,7 @@ const FlightBigField = ({
           width: ww || wp('8%'),
           height: hh || wp('8%'),
           marginBottom: hp('1%'),
+          tintColor:Color.primaryColor
         }}
       />
 

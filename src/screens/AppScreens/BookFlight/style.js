@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
       justifyContent: 'space-between',
       alignItems: 'center',
       width: wp('90%'),
+      zIndex:9999
     },
     row: {
       flexDirection: 'row',

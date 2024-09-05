@@ -20,7 +20,7 @@ const BookingBg = ({children, userImg, txt1, txt2, mainImg, OpenDrawer, ml, tf, 
           flexDirection: 'row',
           justifyContent: 'space-between',
         }}>
-        <TouchableOpacity onPress={OpenDrawer}>
+        <TouchableOpacity hitSlop={50} onPress={OpenDrawer}>
           <Image
             source={drawerIcon}
             style={{width: wp('5%'), height: wp('5%')}}

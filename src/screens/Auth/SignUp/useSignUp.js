@@ -54,6 +54,7 @@ const useSignUp = ({navigation}) => {
       });
   };
 
+
   const handleSubmit = async () => {
     const formData = new FormData();
     setModalVisible(true)
@@ -89,17 +90,17 @@ const useSignUp = ({navigation}) => {
       })
     } catch ({error, response}) {
       setModalVisible(false)
-      console.error('Error Response:', error, );
+      console.error('Error Response:', error);
 
       setTimeout(()=>{
-        showSnackbar(response?.data?.error?.length > 0 ? response?.data.error : 'Something went wrong');
+        showSnackbar(response?.data?.error?.length > 0 ? response?.data.error : imageUri === null ? 'Please upload image first' : password !== confirmPassword ? 'Password are not matching' : 'Please check your internet');
       },1000)
     }
   };
 
 
   const Register = () => {
-    if (imageUri === null) {
+    if (!imageUri) {
       setShow(true);
     }
      if  (!user || user.trim().length < 3) {
@@ -132,7 +133,7 @@ const useSignUp = ({navigation}) => {
 
    
     
-    else  user.trim().length >= 3 && phone.length === 14 ?  handleSubmit() : null;
+    else  user.trim().length >= 3 && phone.length === 14  && password === confirmPassword ?    handleSubmit() : null;
      
     
   };

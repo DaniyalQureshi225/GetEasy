@@ -21,7 +21,8 @@ const CarInput = ({
   zIndex,
   onCitySelect,
   onSelectDetails, // Corrected prop name
-  flight
+  flight,
+ tintColor
 }) => {
   const handlePlaceSelect = (city, details) => {
     console.log('City selected in FlightBtn:', city); 
@@ -68,6 +69,7 @@ const CarInput = ({
           width: ww || wp('8%'),
           height: hh || wp('8%'),
           marginBottom: hp('0%'),
+         tintColor:tintColor
         }}
       />
       <View style={{ marginLeft: wp('2%'), marginTop: hp('1%') }}>

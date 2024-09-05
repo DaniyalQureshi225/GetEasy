@@ -80,7 +80,7 @@ const CityDropDown = ({ onSelect, placeHolder }) => { // Added onSelect prop
            placeholderTextColor={Color.gray}
          /> :
          <View style={{flexDirection:'row', alignItems:'center'}}>
-                   <Text numberOfLines={1} style={{color:Color.black, width:wp('50%')}}>{number}</Text>
+                   <Text numberOfLines={1} style={{color:Color.black, width:wp('67%')}}>{number}</Text>
 
                    <TouchableOpacity onPress={()=>HandleText()}>
                     <Icon

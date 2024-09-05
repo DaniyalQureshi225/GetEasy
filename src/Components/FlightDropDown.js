@@ -51,6 +51,7 @@ const FlightDropDown = ({
           width: ww || wp('8%'),
           height: hh || wp('8%'),
           marginBottom: hp('0%'),
+          tintColor:Color.primaryColor
         }}
       />
       <View style={{marginLeft: wp('2%'), marginTop: hp('2%')}}>

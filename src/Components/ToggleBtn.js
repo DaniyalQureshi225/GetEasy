@@ -6,6 +6,7 @@ import Icon from './Icon';
 const ToggleBtn = ({backgroundColor, color, onPress, name, text}) => {
   return (
     <TouchableOpacity
+      hitSlop={50}
       onPress={onPress}
       style={{
         backgroundColor: backgroundColor,
